@@ -1,3 +1,18 @@
+<?php
+include 'supabase.php';
+
+$result = supabaseRequest("GET", "donations", null, "?select=amount");
+
+$totalRaised = 0;
+if ($result["code"] === 200 && is_array($result["data"])) {
+    foreach ($result["data"] as $row) {
+        $totalRaised += floatval($row["amount"] ?? 0);
+    }
+}
+
+$goal = 20000;
+$percent = $goal > 0 ? min(100, round(($totalRaised / $goal) * 100)) : 0;
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,17 +51,17 @@
                         <div>
                             <small class="fund-label text-uppercase">Current Fundraising Status</small>
                             <div>
-                                <span class="fund-raised">12,450</span>
-                                <span class="fund-goal">raised of 20,000 goal</span>
+                                <span class="fund-raised"><?php echo number_format($totalRaised, 0); ?></span>
+                                <span class="fund-goal">raised of <?php echo number_format($goal, 0); ?> goal</span>
                             </div>
                         </div>
-                        <span class="badge rounded-pill fund-badge">62% Funded</span>
+                        <span class="badge rounded-pill fund-badge"><?php echo $percent; ?>% Funded</span>
                     </div>
 
                     <!-- Progress bar -->
                     <div class="progress fund-progress my-3" role="progressbar"
                         aria-valuenow="62" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar fund-bar" style="width: 62%"></div>
+                        <div class="progress-bar fund-bar" style="width: <?php echo $percent; ?>%"></div>
                     </div>
 
                     <!-- Bottom row -->
