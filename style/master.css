@@ -8,77 +8,7 @@ body {
 
 /*Section Spacing*/
 .homeSec {
-    padding: 60px 70px 25px 70px;
-}
-
-/*Navigation Bar Styling*/
-.custom-navbar {
-    padding: 15px 70px;
-    transition: background 0.3s ease;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-}
-
-.custom-navbar.scrolled {
-    background: #faf9f9;
-}
-.navBarLogo{
-    width: 100px;
-    height: auto;
-}
-
-.nav-link {
-    position: relative;
-    color: #2D5A43 !important;
-    font-weight: 500;
-    margin: 0 10px;
-    transition: color 0.3s ease;
-}
-
-.nav-link:hover {
-    color: #d97706 !important;
-}
-
-.nav-link::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    bottom: -4px;
-    width: 0%;
-    height: 2px;
-    background-color: #d97706;
-    transition: width 0.3s ease;
-}
-
-.nav-link:hover::after {
-    width: 100%;
-}
-
-/*Donate Button Styling*/
-.donate-btn {
-    background-color: #2d5a43;
-    color: #fff;
-    font-weight: 600;
-    font-size: 1.1rem;
-    padding: 14px 32px;
-    border: none;
-    border-radius: 12px;
-    transition: all 0.3s ease;
-}
-
-.donate-btn:hover {
-    background-color: #234736;
-    color: #fff;
-    transform: translateY(-2px);
-}
-
-.donate-btn:active {
-    background-color: #1c3a2c;
-    color: #fff;
-}
-
-.navbar .donate-btn {
-    padding: 8px 20px;
-    font-size: 1rem;
+    padding: 60px 120px 25px;
 }
 
 /*Fundraising Progress*/
@@ -136,6 +66,50 @@ body {
     font-weight: 600;
 }
 
+.learnLink a{
+    text-decoration: none;
+    font-weight: 600;
+    color: #d97706 !important;
+}
+.learnLink a:hover{
+    color: #da7a0d !important;
+}
+
+/*Button Styling*/
+.cta-btn {
+    font-weight: 500;
+    font-size: 1rem;
+    padding: 10px 25px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+
+/* Solid orange */
+.cta-primary {
+    background-color: #dc7805;
+    border: 2px solid #dc7805;
+    color: #fff;
+}
+
+.cta-primary:hover {
+    background-color: #c26a04;
+    border-color: #c26a04;
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+/* Dark green with white outline */
+.cta-secondary {
+    background-color: #1f3d2b;
+    color: #fff;
+}
+
+.cta-secondary:hover {
+    background-color: #fff;
+    border-color: #fff;
+    color: #1f3d2b;
+    transform: translateY(-2px);
+}
 /*Section theme*/
 #hero{
     background-color:#fdfbf7;
@@ -168,4 +142,361 @@ body {
 #callToAction{
     background-color: #2d5a43;
     color: white;
+}
+
+
+/* ---------- Shared page hero (reuse on Contact + Gallery) ---------- */
+.pageHero {
+    background-color: #2c5a3f;
+    color: #ffffff;
+    padding: 80px 20px; 
+}
+
+.pageHero h1 {
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.pageHero p {
+    max-width: 560px;
+    opacity: 0.9;
+}
+
+/* Small orange label above headings */
+.eyebrow {
+    color: #d9821e;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+}
+/* ABOUT PAGE */
+/* ---------- Icon circles (values + transparency card) ---------- */
+.icon-circle {
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background-color: #e6efe8;
+    color: #2c5a3f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.icon-circle-lg {
+    width: 72px;
+    height: 72px;
+    font-size: 1.8rem;
+    background-color: #ffffff;
+}
+
+/* ---------- Mission ---------- */
+#mission {
+    background-color: #faf8f2;
+}
+
+.value-card {
+    border: 1px solid #e8e6df;
+    border-radius: 12px;
+}
+
+.value-card .card-title {
+    color: #2c5a3f;
+    font-weight: 700;
+}
+
+.value-card .card-text {
+    font-size: 0.9rem;
+    color: #5c5c5c;
+}
+
+/* ---------- Story ---------- */
+#story {
+    background-color: #eef3ee;
+}
+
+#story h2 {
+    color: #2c5a3f;
+    font-weight: 700;
+}
+
+.story-img {
+    border-radius: 16px;
+    object-fit: cover;
+    width: 100%;
+    max-height: 360px;
+}
+
+/* ---------- Distribution ---------- */
+#distribution h2 {
+    color: #2c5a3f;
+    font-weight: 700;
+}
+
+.dist-label,
+.dist-percent {
+    font-weight: 600;
+}
+
+.dist-progress {
+    height: 6px;
+    background-color: #e8e6df;
+    border-radius: 10px;
+}
+
+.dist-green  { background-color: #2c5a3f; }
+.dist-orange { background-color: #d9821e; }
+.dist-blue   { background-color: #3d5bd9; }
+.dist-grey   { background-color: #5c5c5c; }
+
+.transparency-card {
+    background-color: #eef3ee;
+    border: none;
+    border-radius: 16px;
+}
+
+.transparency-card h5 {
+    color: #2c5a3f;
+    font-weight: 700;
+}
+
+.transparency-card p {
+    font-size: 0.9rem;
+    color: #5c5c5c;
+}
+
+/* ---------- Stats ---------- */
+#stats {
+    background-color: #1f3d2b;
+    padding: 60px 20px;
+}
+
+.stat-number {
+    color: #d9821e;
+    font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+    font-weight: 700;
+}
+
+.stat-label {
+    color: #ffffff;
+    font-size: 0.75rem;
+    letter-spacing: 0.06em;
+    opacity: 0.85;
+}
+
+/* ---------- Team ---------- */
+#team h2 {
+    color: #2c5a3f;
+    font-weight: 700;
+}
+
+.team-card {
+    border: 1px solid #e8e6df;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.team-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+}
+
+.team-card .card-title {
+    font-weight: 700;
+}
+
+.team-role {
+    color: #d9821e;
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.team-card .card-text {
+    font-size: 0.85rem;
+    color: #5c5c5c;
+}
+
+/* GALLERY STYLING */
+#gallery 
+{
+    background-color: #faf8f2;
+}
+
+/* ---------- Filter pills ---------- */
+.gallery-filter {
+    background-color: #ffffff;
+    border: 1px solid #e8e6df;
+    border-radius: 50px;
+    padding: 5px;
+}
+
+.filter-btn {
+    border: none;
+    border-radius: 50px;
+    padding: 6px 18px;
+    font-size: 0.85rem;
+    color: #333333;
+    background-color: transparent;
+}
+
+.filter-btn:hover {
+    background-color: #eef3ee;
+    color: #2c5a3f;
+}
+
+.filter-btn.active,
+.filter-btn.active:hover {
+    background-color: #2c5a3f;
+    color: #ffffff;
+}
+
+.filter-btn:focus-visible {
+    outline: 2px solid #d9821e;
+    outline-offset: 2px;
+}
+/* ---------- Gallery cards ---------- */
+.gallery-card {
+    border: 1px solid #e8e6df;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.gallery-img {
+    width: 100%;
+    height: 220px;
+    object-fit: cover;
+}
+
+.gallery-card .card-title {
+    color: #2c5a3f;
+    font-weight: 700;
+}
+
+.gallery-meta {
+    color: #d9821e;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+}
+
+/* CONTACT PAGE */
+
+#contact {
+    background-color: #faf8f2;
+}
+
+#contact h2 {
+    color: #2c5a3f;
+    font-weight: 700;
+}
+
+/* ---------- Contact info ---------- */
+.contact-label,
+.social-label {
+    color: #d9821e;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+}
+
+.social-label {
+    color: #333333;
+}
+
+.contact-value {
+    color: #222222;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+a.contact-value:hover {
+    color: #2c5a3f;
+    text-decoration: underline;
+}
+
+.social-btn {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background-color: #e6efe8;
+    color: #2c5a3f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+}
+
+.social-btn:hover {
+    background-color: #2c5a3f;
+    color: #ffffff;
+}
+
+/* ---------- Form card ---------- */
+.form-card {
+    border: 1px solid #e8e6df;
+    border-radius: 16px;
+    box-shadow: 0 6px 24px rgba(31, 61, 43, 0.06);
+}
+
+.form-title {
+    color: #2c5a3f;
+    font-weight: 700;
+    font-size: 1.4rem;
+}
+
+.form-card .form-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.contact-input {
+    background-color: #f7f6f2;
+    border: 1px solid #e8e6df;
+    border-radius: 8px;
+    font-size: 0.9rem;
+    padding: 10px 14px;
+}
+
+.contact-input:focus {
+    background-color: #ffffff;
+    border-color: #2c5a3f;
+    box-shadow: 0 0 0 3px rgba(44, 90, 63, 0.15);
+}
+
+.contact-check:checked {
+    background-color: #2c5a3f;
+    border-color: #2c5a3f;
+}
+
+.contact-check:focus {
+    box-shadow: 0 0 0 3px rgba(44, 90, 63, 0.15);
+}
+
+.form-card .form-check-label a {
+    color: #2c5a3f;
+}
+
+/* Success message */
+.form-success {
+    background-color: #e6efe8;
+    border: 1px solid #2c5a3f;
+    border-radius: 10px;
+    color: #2c5a3f;
+}
+
+/* Submit button */
+.btn-send {
+    background-color: #2c5a3f;
+    color: #ffffff;
+    border-radius: 8px;
+    padding: 12px;
+    font-weight: 600;
+}
+
+.btn-send:hover,
+.btn-send:focus-visible {
+    background-color: #1f3d2b;
+    color: #ffffff;
 }

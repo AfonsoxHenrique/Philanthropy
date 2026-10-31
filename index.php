@@ -155,8 +155,10 @@ $percent = $goal > 0 ? min(100, round(($totalRaised / $goal) * 100)) : 0;
                                 <p class="card-text">
                                     backpacks, stationery, and tech toolkits for lower-income students
                                 </p>
-                                <div class="mt-auto">
-                                    <a href="#" class="btn btn-primary btn-sm me-2">Learn More</a>
+                                <div class="mt-auto learnLink">
+                                    <a href="#">
+                                        Learn More <i class="bi bi-arrow-right"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -172,8 +174,10 @@ $percent = $goal > 0 ? min(100, round(($totalRaised / $goal) * 100)) : 0;
                                 <p class="card-text">
                                     Daily hot meals and nutritious snacks for students staying late for athletic or academic coaching
                                 </p>
-                                <div class="mt-auto">
-                                    <a href="#" class="btn btn-primary btn-sm me-2">Learn More</a>
+                                <div class="mt-auto learnLink">
+                                    <a href="#">
+                                        Learn More <i class="bi bi-arrow-right"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -189,8 +193,10 @@ $percent = $goal > 0 ? min(100, round(($totalRaised / $goal) * 100)) : 0;
                                 <p class="card-text">
                                     Funding instruments, canvases, and community art galleries to unlock self-expression and joy
                                 </p>
-                                <div class="mt-auto">
-                                    <a href="#" class="btn btn-primary btn-sm me-2">Learn More</a>
+                                <div class="mt-auto learnLink">
+                                    <a href="#">
+                                        Learn More <i class="bi bi-arrow-right"></i>
+                                    </a>
                                 </div>
                             </div>
                         </div>
@@ -202,13 +208,16 @@ $percent = $goal > 0 ? min(100, round(($totalRaised / $goal) * 100)) : 0;
 
     <!-- Call to action Section -->
     <section id="callToAction" class="d-flex align-items-center justify-content-center homeSec">
-        <div class="container-fluid">
-            <h2 class="text-center mb-5">Join Us - Every Contribution Makes a Difference</h2>
-            <p>Whether you can give 5 dollars, 2 hours of your time, or share our links, you are helping construct a robust foundation of securit for local school children</p>
-            <button>Complete Donation</button>
-            <button>Volunteer With Us</button>
+        <div class="container-fluid text-center">
+            <h2 class="mb-4">Join Us - Every Contribution Makes a Difference</h2>
+            <p class="mb-4">Whether you can give 5 dollars, 2 hours of your time, or share our links, you are helping construct a robust foundation of securit for local school children</p>
+            <div class="container-fluid d-flex justify-content-center gap-3 mb-4">
+                <a href="#" class="btn cta-btn cta-primary">Complete Donation</a>
+                <a href="#" class="btn cta-btn cta-secondary">Volunteer With Us</a>
+            </div>
         </div>
     </section>
+    <?php include 'include/footer.php' ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <!-- Scroll Effect -->
