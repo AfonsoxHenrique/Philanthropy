@@ -1,0 +1,414 @@
+/* =========================================
+   ADMIN CONSOLE - style/admin.css
+   Separate from master.css so the public site styles can't clash
+   ========================================= */
+
+:root {
+    --green: #2c5a3f;
+    --green-dark: #1f3d2b;
+    --green-light: #e6efe8;
+    --orange: #d9821e;
+    --orange-light: #fff1d6;
+    --red: #e5443b;
+    --red-light: #fde4e2;
+    --bg: #f4f5f2;
+    --border: #e8e6df;
+    --text-muted: #5c5c5c;
+    --sidebar-width: 245px;
+    /* Copy your font-family from master.css here so both sides match */
+    --font-main: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
+}
+
+/* ---------- Layout ---------- */
+.admin-body {
+    font-family: var(--font-main);
+    background-color: var(--bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.admin-wrapper {
+    flex: 1;
+    display: flex;
+}
+
+.admin-main {
+    flex: 1;
+    min-width: 0; /* lets the table scroll instead of stretching the page */
+    padding: 40px;
+}
+
+/* ---------- Top bar ---------- */
+.admin-topbar {
+    background-color: var(--green);
+    color: #ffffff;
+    padding: 12px 36px;
+}
+
+.admin-brand {
+    color: #ffffff;
+    font-weight: 700;
+    font-size: 1.2rem;
+    text-decoration: none;
+}
+
+.admin-brand:hover {
+    color: #ffffff;
+}
+
+.brand-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background-color: var(--orange);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.admin-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.admin-name {
+    font-size: 0.9rem;
+}
+
+.role-badge {
+    background-color: var(--orange);
+    font-size: 0.6rem;
+    letter-spacing: 0.04em;
+}
+
+.btn-logout {
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    font-size: 0.85rem;
+    padding: 5px 12px;
+}
+
+.btn-logout:hover {
+    background-color: #ffffff;
+    color: var(--green);
+}
+
+.sidebar-toggle {
+    color: #ffffff;
+    font-size: 1.5rem;
+    padding: 0 4px;
+    border: none;
+}
+
+/* ---------- Sidebar ---------- */
+.admin-sidebar {
+    --bs-offcanvas-bg: var(--green-dark);
+    --bs-offcanvas-color: #ffffff;
+    --bs-offcanvas-width: 260px;
+}
+
+@media (min-width: 992px) {
+    .admin-sidebar-wrap {
+        width: var(--sidebar-width);
+        flex-shrink: 0;
+        background-color: var(--green-dark);
+        padding: 22px;
+    }
+}
+
+.sidebar-link {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 0.9rem;
+    font-weight: 500;
+    border-radius: 8px;
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar-link:hover,
+.sidebar-link:focus-visible {
+    color: #ffffff;
+    background-color: rgba(255, 255, 255, 0.08);
+}
+
+.sidebar-link.active {
+    color: #ffffff;
+    background-color: var(--green);
+}
+
+/* ---------- Page heading ---------- */
+.admin-title {
+    color: var(--green);
+    font-weight: 800;
+    font-size: clamp(1.8rem, 3vw, 2.2rem);
+}
+
+.admin-subtitle {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+}
+
+.sys-version {
+    color: var(--orange);
+    font-family: var(--font-mono);
+    font-weight: 700;
+    font-size: 0.75rem;
+}
+
+/* ---------- Stat cards ---------- */
+.stat-card,
+.panel-card {
+    border: 1px solid var(--border);
+    border-radius: 12px;
+}
+
+.stat-card .card-body {
+    padding: 22px;
+}
+
+.stat-label {
+    color: #333333;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+}
+
+.stat-value {
+    color: var(--green);
+    font-size: clamp(1.6rem, 2.4vw, 2rem);
+    font-weight: 800;
+    margin: 6px 0 10px;
+}
+
+.stat-value.text-alert {
+    color: var(--red);
+}
+
+.stat-tag {
+    display: inline-block;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.tag-green  { background-color: var(--green-light);  color: var(--green); }
+.tag-orange { background-color: var(--orange-light); color: #a85d08; }
+.tag-red    { background-color: var(--red-light);    color: #c0322a; }
+.tag-grey   { background-color: #eeeeee;             color: var(--text-muted); }
+
+/* ---------- Panels ---------- */
+.panel-card .card-body {
+    padding: 24px;
+}
+
+.panel-title {
+    color: var(--green);
+    font-weight: 700;
+    font-size: 1.15rem;
+}
+
+.btn-action {
+    border: 1px solid var(--green);
+    color: var(--green);
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 8px 16px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.btn-action:hover,
+.btn-action:focus-visible {
+    background-color: var(--green);
+    color: #ffffff;
+}
+
+.btn-export {
+    background-color: var(--green-light);
+    color: var(--green);
+    font-weight: 600;
+    font-size: 0.85rem;
+}
+
+.btn-export:hover {
+    background-color: var(--green);
+    color: #ffffff;
+}
+
+/* ---------- Ledger table ---------- */
+.ledger-table thead th {
+    background-color: var(--green-light);
+    color: #333333;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 12px;
+    border: none;
+    white-space: nowrap;
+}
+
+.ledger-table thead th:first-child { border-radius: 6px 0 0 6px; }
+.ledger-table thead th:last-child  { border-radius: 0 6px 6px 0; }
+
+.ledger-table td {
+    padding: 12px;
+    font-size: 0.9rem;
+    border-color: var(--border);
+    white-space: nowrap;
+}
+
+.ledger-date {
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+}
+
+.ledger-donor {
+    font-weight: 500;
+}
+
+.ledger-amount {
+    color: var(--green);
+    font-weight: 600;
+}
+
+.ledger-type {
+    color: var(--text-muted);
+}
+
+.status-badge {
+    display: inline-block;
+    min-width: 112px;
+    text-align: center;
+    font-size: 0.68rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 4px;
+}
+
+.status-completed,
+.status-active { background-color: var(--green-light);  color: var(--green); }
+.status-pending { background-color: var(--orange-light); color: #a85d08; }
+.status-default { background-color: #eeeeee;            color: var(--text-muted); }
+
+/* ---------- Footer ---------- */
+.admin-footer {
+    background-color: var(--green-dark);
+    color: rgba(255, 255, 255, 0.85);
+    padding: 18px 24px;
+}
+
+/* ---------- Small screens ---------- */
+@media (max-width: 767.98px) {
+    .admin-main {
+        padding: 24px 16px;
+    }
+
+    .admin-topbar {
+        padding: 12px 16px;
+    }
+}
+
+/* ---------- Login page ---------- */
+.login-body {
+    background-color: var(--bg);
+}
+
+.login-card {
+    width: 100%;
+    max-width: 420px;
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(31, 61, 43, 0.08);
+}
+
+.login-card .card-body {
+    padding: 36px;
+}
+
+.login-brand {
+    color: var(--green);
+    font-weight: 700;
+}
+
+.login-card .brand-icon {
+    color: #ffffff;
+}
+
+.login-title {
+    color: var(--green);
+    font-weight: 800;
+    font-size: 1.8rem;
+}
+
+.login-card .form-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+}
+
+.login-input {
+    background-color: #f7f6f2;
+    border: 1px solid var(--border);
+    font-size: 0.9rem;
+    padding: 10px 14px;
+}
+
+.login-input:focus {
+    background-color: #ffffff;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(44, 90, 63, 0.15);
+}
+
+.password-toggle {
+    color: var(--text-muted);
+    border-left: none;
+}
+
+.password-toggle:hover {
+    color: var(--green);
+}
+
+.btn-login {
+    background-color: var(--green);
+    color: #ffffff;
+    font-weight: 600;
+    padding: 12px;
+    border-radius: 8px;
+}
+
+.btn-login:hover,
+.btn-login:focus-visible {
+    background-color: var(--green-dark);
+    color: #ffffff;
+}
+
+.login-notice {
+    background-color: var(--green-light);
+    border: 1px solid var(--green);
+    color: var(--green);
+}
+
+.back-link {
+    color: var(--text-muted);
+    font-size: 0.85rem;
+    text-decoration: none;
+}
+
+.back-link:hover {
+    color: var(--green);
+    text-decoration: underline;
+}
+
+@media (max-width: 575.98px) {
+    .login-card .card-body {
+        padding: 24px;
+    }
+}
