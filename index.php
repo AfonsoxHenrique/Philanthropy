@@ -212,8 +212,8 @@ $percent = $goal > 0 ? min(100, round(($totalRaised / $goal) * 100)) : 0;
             <h2 class="mb-4">Join Us - Every Contribution Makes a Difference</h2>
             <p class="mb-4">Whether you can give 5 dollars, 2 hours of your time, or share our links, you are helping construct a robust foundation of securit for local school children</p>
             <div class="container-fluid d-flex justify-content-center gap-3 mb-4">
-                <a href="#" class="btn cta-btn cta-primary">Complete Donation</a>
-                <a href="#" class="btn cta-btn cta-secondary">Volunteer With Us</a>
+                <a href="donationPage.php" class="btn cta-btn cta-primary">Complete Donation</a>
+                <a href="volunteer.php" class="btn cta-btn cta-secondary">Volunteer With Us</a>
             </div>
         </div>
     </section>

@@ -500,3 +500,410 @@ a.contact-value:hover {
     background-color: #1f3d2b;
     color: #ffffff;
 }
+
+/* Outline button (pairs with .btn-send) */
+.btn-outline-send {
+    background-color: #ffffff;
+    border: 1px solid #e8e6df;
+    color: #2c5a3f;
+    border-radius: 8px;
+    padding: 12px;
+    font-weight: 600;
+}
+
+.btn-outline-send:hover,
+.btn-outline-send:focus-visible {
+    background-color: #eef3ee;
+    border-color: #2c5a3f;
+    color: #2c5a3f;
+}
+
+/* DONATE PAGE */
+#donate {
+    background-color: #faf8f2;
+}
+
+/* ---------- Impact list ---------- */
+.impact-title {
+    color: #2c5a3f;
+    font-weight: 700;
+}
+
+.impact-amount {
+    background-color: #fdeeb8;
+    color: #d97706;
+    font-weight: 700;
+    border-radius: 8px;
+    padding: 6px 14px;
+    min-width: 70px;
+    text-align: center;
+}
+
+.impact-text {
+    color: #333333;
+    padding-top: 5px;
+}
+
+/* ---------- One-time / Monthly toggle ---------- */
+.frequency-toggle {
+    display: flex;
+    background-color: #eef3ee;
+    border-radius: 10px;
+    padding: 4px;
+}
+
+.frequency-btn {
+    flex: 1;
+    border: none !important;
+    border-radius: 8px !important;
+    color: #5c5c5c;
+    font-weight: 600;
+    padding: 10px;
+}
+
+.btn-check:checked + .frequency-btn {
+    background-color: #2c5a3f;
+    color: #ffffff;
+}
+
+.btn-check:focus-visible + .frequency-btn {
+    outline: 2px solid #d9821e;
+    outline-offset: 2px;
+}
+
+/* ---------- Amount buttons ---------- */
+.amount-btn {
+    background-color: #ffffff;
+    border: 1px solid #e8e6df;
+    border-radius: 8px;
+    font-weight: 700;
+    padding: 12px 0;
+}
+
+.amount-btn:hover {
+    border-color: #2c5a3f;
+}
+
+.amount-btn.active,
+.amount-btn.active:hover {
+    background-color: #2c5a3f;
+    border-color: #2c5a3f;
+    color: #ffffff;
+}
+
+.amount-btn:focus-visible {
+    outline: 2px solid #d9821e;
+    outline-offset: 2px;
+}
+
+/* ---------- Payment methods ---------- */
+.payment-chip {
+    border: 1px solid #e8e6df;
+    border-radius: 8px;
+    text-align: center;
+    padding: 8px 4px;
+    color: #5c5c5c;
+}
+
+.payment-chip i {
+    display: block;
+    font-size: 1.2rem;
+    color: #2c5a3f;
+}
+
+.payment-chip small {
+    font-size: 0.7rem;
+}
+
+.consent-text {
+    color: #5c5c5c;
+    font-size: 0.85rem;
+}
+
+.consent-text a {
+    color: #2c5a3f;
+}
+
+.secure-note {
+    background-color: #eef3ee;
+    color: #2c5a3f;
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-align: center;
+    border-radius: 8px;
+    padding: 12px;
+}
+
+/* DONATION CONFIRMED PAGE */
+#confirmation {
+    background-color: #faf8f2;
+    min-height: 75vh;
+}
+
+.confirm-card {
+    max-width: 640px;
+    border: 1px solid #e8e6df;
+    border-radius: 20px;
+    box-shadow: 0 6px 24px rgba(31, 61, 43, 0.06);
+}
+
+#confirmation .icon-circle-lg {
+    background-color: #e6efe8;
+}
+
+.confirm-title {
+    color: #2c5a3f;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 4vw, 2.2rem);
+}
+
+.confirm-text {
+    color: #5c5c5c;
+    max-width: 470px;
+}
+
+/* ---------- Donation summary ---------- */
+.confirm-summary {
+    background-color: #eef3ee;
+    border-radius: 12px;
+    padding: 8px 24px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid #e8e6df;
+}
+
+.summary-row:last-child {
+    border-bottom: none;
+}
+
+.summary-label {
+    color: #5c5c5c;
+}
+
+.summary-value {
+    color: #222222;
+    text-align: right;
+}
+
+.summary-amount {
+    color: #2c5a3f;
+    font-weight: 700;
+    font-size: 1.25rem;
+}
+
+.confirm-receipt {
+    color: #2c5a3f;
+    font-weight: 600;
+}
+
+/* FAQ PAGE */
+#faq {
+    background-color: #faf8f2;
+}
+
+.faq-accordion {
+    max-width: 900px;
+}
+
+.faq-item {
+    background-color: #ffffff;
+    border: 1px solid #e8e6df !important;
+    border-radius: 12px !important;
+    margin-bottom: 16px;
+    overflow: hidden;
+}
+
+/* Green border when a question is open */
+.faq-item:has(.accordion-collapse.show) {
+    border-color: #2c5a3f !important;
+}
+
+.faq-question {
+    color: #2c5a3f !important;
+    background-color: #ffffff !important;
+    font-weight: 700;
+    font-size: 1.1rem;
+    padding: 22px 24px;
+    box-shadow: none !important;
+}
+
+.faq-question:focus-visible {
+    outline: 2px solid #d9821e;
+    outline-offset: -4px;
+}
+
+/* + / - circle instead of the Bootstrap arrow */
+.faq-question::after {
+    content: "+";
+    background-image: none !important;
+    background-color: #e6efe8;
+    color: #2c5a3f;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    transform: none !important;
+    flex-shrink: 0;
+}
+
+.faq-question:not(.collapsed)::after {
+    content: "\2212";
+}
+
+.faq-answer {
+    color: #5c5c5c;
+    padding: 0 24px 24px;
+    line-height: 1.7;
+}
+
+/* ---------- Contact call-to-action ---------- */
+#faqContact {
+    background-color: #eef3ee;
+    padding-bottom: 60px;
+}
+
+#faqContact h2 {
+    color: #2c5a3f;
+    font-weight: 700;
+}
+
+#faqContact p {
+    color: #5c5c5c;
+    max-width: 520px;
+}
+
+/* PRIVACY POLICY PAGE */
+#privacy {
+    background-color: #faf8f2;
+}
+
+.policy-nav {
+    position: sticky;
+    top: 110px;
+}
+
+.policy-nav .nav-link {
+    color: #5c5c5c;
+    padding: 6px 0;
+}
+
+.policy-nav .nav-link {
+    border-left: 3px solid transparent;
+    padding-left: 12px;
+}
+
+.policy-nav .nav-link:hover {
+    color: #2c5a3f;
+}
+
+/* Section you're currently reading */
+.policy-nav .nav-link.active {
+    color: #d9821e;
+    font-weight: 700;
+    border-left-color: #d9821e;
+}
+
+.policy-block {
+    scroll-margin-top: 110px;
+    margin-bottom: 40px;
+}
+
+.policy-block h2 {
+    color: #2c5a3f;
+    font-weight: 700;
+    font-size: 1.7rem;
+    margin-bottom: 16px;
+}
+
+.policy-block p,
+.policy-block li {
+    color: #5c5c5c;
+    line-height: 1.8;
+    max-width: 75ch;
+}
+
+/* VOLUNTEER PAGE */
+#volunteerIntro {
+    background-color: #ffffff;
+    padding-bottom: 60px;
+}
+
+#volunteerIntro h2,
+#roles h2,
+#volunteerForm h2 {
+    color: #2c5a3f;
+    font-weight: 700;
+}
+
+#volunteerIntro p,
+.volunteer-lead {
+    color: #5c5c5c;
+    line-height: 1.7;
+}
+
+/* ---------- Role cards ---------- */
+#roles {
+    background-color: #eef3ee;
+    padding-bottom: 60px;
+}
+
+.role-card {
+    border: 1px solid #e8e6df;
+    border-radius: 12px;
+}
+
+.role-card .card-title {
+    color: #2c5a3f;
+    font-weight: 700;
+}
+
+.role-card .card-text {
+    font-size: 0.9rem;
+    color: #5c5c5c;
+}
+
+.role-time {
+    display: inline-block;
+    background-color: #fdeeb8;
+    color: #d97706;
+    font-size: 0.75rem;
+    font-weight: 600;
+    border-radius: 50px;
+    padding: 4px 12px;
+}
+
+/* ---------- Form section ---------- */
+#volunteerForm {
+    background-color: #faf8f2;
+}
+
+.perk-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    margin-bottom: 12px;
+    font-size: 0.9rem;
+    color: #333333;
+}
+
+.perk-list i {
+    color: #d9821e;
+}
+
+/* TERMS OF USE PAGE (uses the same layout as the Privacy Policy) */
+#terms {
+    background-color: #faf8f2;
+}
+
+.policy-block a {
+    color: #2c5a3f;
+}
