@@ -142,6 +142,7 @@
                 <ul class="list-unstyled footer-links">
                     <li><a href="./privacypolicy.php">Privacy Policy</a></li>
                     <li><a href="./terms.php">Terms of Use</a></li>
+                    <li><a href="./faq.php">FAQ</a></li> 
                     <li><a href="./contacts.php">Contacts</a></li>
                 </ul>
             </div>
