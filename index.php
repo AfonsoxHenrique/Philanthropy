@@ -1,222 +1,180 @@
 <?php
 include 'supabase.php';
 
+// ===== Fundraising goal settings (keep the same as donationPage.php) =====
+$goalAmount = 20000;
+$goalEnds   = "15 April 2027";
+
+// ===== Fundraising progress =====
 $result = supabaseRequest("GET", "donations", null, "?select=amount");
 
-$totalRaised = 0;
+$totalRaised   = 0;
+$donationCount = 0;
 if ($result["code"] === 200 && is_array($result["data"])) {
     foreach ($result["data"] as $row) {
         $totalRaised += floatval($row["amount"] ?? 0);
     }
+    $donationCount = count($result["data"]);
 }
+$percentFunded = $goalAmount > 0 ? min(100, round(($totalRaised / $goalAmount) * 100)) : 0;
 
-$goal = 20000;
-$percent = $goal > 0 ? min(100, round(($totalRaised / $goal) * 100)) : 0;
+// ===== Programs =====
+$programs = [
+    [
+        "icon"  => "bi-book",
+        "title" => "Textbooks &amp; Stationery",
+        "meta"  => "First delivery &middot; April 2024",
+        "text"  => "Books and supplies for Cebu classrooms."
+    ],
+    [
+        "icon"  => "bi-pc-display",
+        "title" => "Classroom Computers",
+        "meta"  => "30 computers delivered &middot; January 2026",
+        "text"  => "Technology to support classroom learning."
+    ],
+    [
+        "icon"  => "bi-wifi",
+        "title" => "School Internet Access",
+        "meta"  => "Added access points &middot; September 2026",
+        "text"  => "Wider internet coverage across the school."
+    ]
+];
+
+// ===== Impact numbers (replace with the client's real figures) =====
+$impact = [
+    ["number" => "300+", "label" => "Students supported"],
+    ["number" => "50+",  "label" => "Volunteers"],
+    ["number" => "15",   "label" => "Events"]
+];
+
+// Approved parent or volunteer quote. Leave empty to hide the quote box.
+$quote = "";
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>Phill Antrophy</title>
+    <title>Home | Phill Anthropy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="style/master.css" rel="stylesheet">
+    <link href="style/master.css?v=2" rel="stylesheet">
 </head>
 
 <body>
     <!-- Navbar -->
     <?php include 'include/navbar.php' ?>
 
-    <!-- Hero Section -->
-    <section id="hero" class="d-flex align-items-center justify-content-center homeSec">
+    <!-- Hero -->
+    <section id="homeHero" class="d-flex align-items-center">
         <div class="container-fluid">
-            <div class="row align-items-center">
-                <div class="col-md-4">
-                    <h1 class="mb-4">Empowering Our Community, One Act of Giving at a Time</h1>
-                    <p>Phill Antrophy helps close the resource gap for neighborhood schools. We fund extra-curricular activities, provide baseline school supplies
-                        and support community wellness initiatives.
-                    </p>
-                </div>
-                <div class="col-md-8 text-end">
-                    <img src="assets/images/hero_image.jpg" class="img-fluid">
-                </div>
-            </div>
-            <div class="card fundraising-card">
-                <div class="card-body p-4">
-
-                    <!-- Top row: label + amount on the left, badge on the right -->
-                    <div class="d-flex justify-content-between align-items-start">
-                        <div>
-                            <small class="fund-label text-uppercase">Current Fundraising Status</small>
-                            <div>
-                                <span class="fund-raised"><?php echo number_format($totalRaised, 0); ?></span>
-                                <span class="fund-goal">raised of <?php echo number_format($goal, 0); ?> goal</span>
-                            </div>
-                        </div>
-                        <span class="badge rounded-pill fund-badge"><?php echo $percent; ?>% Funded</span>
-                    </div>
-
-                    <!-- Progress bar -->
-                    <div class="progress fund-progress my-3" role="progressbar"
-                        aria-valuenow="62" aria-valuemin="0" aria-valuemax="100">
-                        <div class="progress-bar fund-bar" style="width: <?php echo $percent; ?>%"></div>
-                    </div>
-
-                    <!-- Bottom row -->
-                    <div class="d-flex justify-content-between">
-                        <small class="fund-note">Supported by over 340 active families &amp; local businesses</small>
-                        <small class="fund-deadline">Goal Ends: April 15, 2026</small>
-                    </div>
-                </div>
-            </div>
+            <h1 class="mb-3">Helping Local Students Thrive</h1>
+            <p class="hero-sub mb-4">School essentials. Brighter futures in Cebu.</p>
+            <a href="donationPage.php" class="btn cta-btn cta-primary">Donate Now</a>
         </div>
     </section>
 
-    <!-- Commitments Section -->
-    <section id="commitment" class="d-flex align-items-center justify-content-center homeSec">
+    <!-- Mission -->
+    <section id="homeMission" class="text-center">
         <div class="container-fluid">
-            <h2 class="text-center mb-5">Our Core Commitment</h2>
-            <p>We believe that every child deserves a level playing field, health nutrition, and safe outlets for after-school
-                development. Through the collaborative funding of local parents and regional patrons, we build direct, transparent
-                relief structures for our school cluster.</p>
+            <p class="mission-line mx-auto mb-0">We fund school supplies and technology for students in Cebu, Philippines.</p>
         </div>
     </section>
 
-    <!-- Projects Section -->
-    <section id="projects" class="d-flex align-items-center justify-content-center homeSec">
+    <!-- Programs -->
+    <section id="programs" class="homeSec">
         <div class="container-fluid">
-            <h4 class="text-center mb-1">STORIES FROM THE GROUND</h4>
-            <h2 class="text-center mb-5">What We Are Funding This Season</h2>
+            <h2 class="text-center mb-5">Our Programs</h2>
 
             <div class="row g-4">
-                <div class="row g-4">
-                    <!-- Potential project -->
+                <?php foreach ($programs as $program): ?>
+                    <!-- Program card -->
                     <div class="col-md-4">
-                        <div class="card">
-                            <img src="img/hp400.jpg" class="samsungimg">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">Essential School Supplies</h5>
-
-                                <p class="card-text">
-                                    backpacks, stationery, and tech toolkits for lower-income students
-                                </p>
+                        <div class="card program-card h-100">
+                            <div class="card-body p-4">
+                                <div class="program-icon mb-4">
+                                    <i class="bi <?php echo $program["icon"]; ?>" aria-hidden="true"></i>
+                                </div>
+                                <h5 class="card-title"><?php echo $program["title"]; ?></h5>
+                                <p class="program-meta mb-3"><?php echo $program["meta"]; ?></p>
+                                <p class="program-text"><?php echo $program["text"]; ?></p>
+                                <a href="gallery.php" class="program-link">Learn more <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
                             </div>
                         </div>
                     </div>
+                <?php endforeach; ?>
+            </div>
 
-                    <!-- Potential project -->
-                    <div class="col-md-4">
-                        <div class="card">
-                            <img src="img/hp400.jpg" class="samsungimg">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">Health After-School Fuel</h5>
-
-                                <p class="card-text">
-                                    Daily hot meals and nutritious snacks for students staying late for athletic or academic coaching
-                                </p>
-                            </div>
+            <!-- Fundraising progress -->
+            <div class="card fundraising-card p-4 mt-5">
+                <div class="d-flex justify-content-between align-items-start flex-wrap gap-3">
+                    <div>
+                        <small class="fund-label text-uppercase">Current fundraising status</small>
+                        <div class="mt-1">
+                            <span class="fund-raised">$<?php echo number_format($totalRaised, 0); ?></span>
+                            <span class="fund-goal">raised of $<?php echo number_format($goalAmount, 0); ?> goal</span>
                         </div>
                     </div>
+                    <span class="badge rounded-pill fund-badge"><?php echo $percentFunded; ?>% Funded</span>
+                </div>
 
-                    <!-- Potential project -->
-                    <div class="col-md-4">
-                        <div class="card">
-                            <img src="img/hp400.jpg" class="samsungimg">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">Creative Arts Program</h5>
+                <div class="progress fund-progress my-4" role="progressbar" aria-label="Fundraising progress"
+                    aria-valuenow="<?php echo $percentFunded; ?>" aria-valuemin="0" aria-valuemax="100">
+                    <div class="progress-bar fund-bar" style="width: <?php echo $percentFunded; ?>%"></div>
+                </div>
 
-                                <p class="card-text">
-                                    Funding instruments, canvases, and community art galleries to unlock self-expression and joy
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+                <div class="d-flex justify-content-between flex-wrap gap-2">
+                    <small class="fund-note">Supported by <?php echo $donationCount; ?> donations from families and local businesses</small>
+                    <small class="fund-deadline">Goal ends: <?php echo $goalEnds; ?></small>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Events Section -->
-    <section id="events" class="d-flex align-items-center justify-content-center homeSec">
+    <!-- Our Promise -->
+    <section id="promise" class="text-center">
         <div class="container-fluid">
-            <h4>MARK YOUR CALENDARS</h4>
-            <h2 class="mb-5">Upcoming Neighborhood Events</h2>
-            <div class="row g-4">
-                <div class="row g-4">
-                    <!-- Potential project -->
+            <h2 class="mb-3">Every dollar is tracked and reported.</h2>
+            <a href="faq.php" class="promise-link">See how donations are used <i class="bi bi-arrow-right" aria-hidden="true"></i></a>
+        </div>
+    </section>
+
+    <!-- Our Impact -->
+    <section id="impact" class="homeSec pb-5">
+        <div class="container-fluid">
+            <h2 class="text-center mb-5">Our Impact</h2>
+
+            <div class="row g-4 text-center">
+                <?php foreach ($impact as $stat): ?>
                     <div class="col-md-4">
-                        <div class="card">
-                            <img src="img/hp400.jpg" class="samsungimg">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">Essential School Supplies</h5>
-
-                                <p class="card-text">
-                                    backpacks, stationery, and tech toolkits for lower-income students
-                                </p>
-                                <div class="mt-auto learnLink">
-                                    <a href="#">
-                                        Learn More <i class="bi bi-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
+                        <div class="impact-number"><?php echo $stat["number"]; ?></div>
+                        <p class="impact-label mb-0"><?php echo $stat["label"]; ?></p>
                     </div>
+                <?php endforeach; ?>
+            </div>
 
-                    <!-- Potential project -->
-                    <div class="col-md-4">
-                        <div class="card">
-                            <img src="img/hp400.jpg" class="samsungimg">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">Health After-School Fuel</h5>
-
-                                <p class="card-text">
-                                    Daily hot meals and nutritious snacks for students staying late for athletic or academic coaching
-                                </p>
-                                <div class="mt-auto learnLink">
-                                    <a href="#">
-                                        Learn More <i class="bi bi-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Potential project -->
-                    <div class="col-md-4">
-                        <div class="card">
-                            <img src="img/hp400.jpg" class="samsungimg">
-                            <div class="card-body d-flex flex-column">
-                                <h5 class="card-title">Creative Arts Program</h5>
-
-                                <p class="card-text">
-                                    Funding instruments, canvases, and community art galleries to unlock self-expression and joy
-                                </p>
-                                <div class="mt-auto learnLink">
-                                    <a href="#">
-                                        Learn More <i class="bi bi-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <?php if ($quote !== ""): ?>
+                <!-- Quote -->
+                <div class="impact-quote mx-auto mt-5 text-center">
+                    <p class="mb-0">&ldquo;<?php echo $quote; ?>&rdquo;</p>
                 </div>
+            <?php endif; ?>
+        </div>
+    </section>
+
+    <!-- Call to Action -->
+    <section id="callToAction" class="text-center py-5">
+        <div class="container-fluid py-4">
+            <h2 class="mb-3">Join Us &mdash; Every Contribution Makes a Difference</h2>
+            <p class="mb-4">Give a little. Help local children thrive.</p>
+            <div class="d-flex justify-content-center flex-wrap gap-3">
+                <a href="donationPage.php" class="btn cta-btn cta-primary">Donate</a>
+                <a href="volunteer.php" class="btn cta-btn cta-secondary cta-outline">Volunteer With Us</a>
             </div>
         </div>
     </section>
 
-    <!-- Call to action Section -->
-    <section id="callToAction" class="d-flex align-items-center justify-content-center homeSec">
-        <div class="container-fluid text-center">
-            <h2 class="mb-4">Join Us - Every Contribution Makes a Difference</h2>
-            <p class="mb-4">Whether you can give 5 dollars, 2 hours of your time, or share our links, you are helping construct a robust foundation of securit for local school children</p>
-            <div class="container-fluid d-flex justify-content-center gap-3 mb-4">
-                <a href="donationPage.php" class="btn cta-btn cta-primary">Complete Donation</a>
-                <a href="volunteer.php" class="btn cta-btn cta-secondary">Volunteer With Us</a>
-            </div>
-        </div>
-    </section>
     <?php include 'include/footer.php' ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
