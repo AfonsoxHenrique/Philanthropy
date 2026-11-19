@@ -89,14 +89,13 @@
                 <a class="nav-link" href="./index.php">Home</a>
                 <a class="nav-link" href="./about.php">About Us</a>
                 <a class="nav-link" href="./donationPage.php">Donate</a>
-                <a class="nav-link" href="./events.php">Events</a>
                 <a class="nav-link" href="./volunteer.php">Volunteer</a>
                 <a class="nav-link" href="./gallery.php">Gallery</a>
             </div>
-            <button class="btn donate-btn d-flex d-lg-inline-flex align-items-center gap-2 mx-auto mx-lg-0 mt-3 mt-lg-0">
-                Donate Now
+            <a href="./donationPage.php" class="btn donate-btn d-flex d-lg-inline-flex align-items-center gap-2 mx-auto mx-lg-0 mt-3 mt-lg-0">
+             Donate Now
                 <i class="bi bi-heart"></i>
-            </button>
+            </a>
         </div>
 
 

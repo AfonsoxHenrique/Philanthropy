@@ -1,48 +1,34 @@
 <?php
-// Filter categories (key => label shown on the pill)
-$categories = [
-    "events"     => "Local Events",
-    "campaigns"  => "Seasonal Campaigns",
-    "deliveries" => "School Deliveries"
-];
-
-// Gallery items
-$galleryItems = [
+// Delivery milestones (photos must not show identifiable students or teachers)
+$milestones = [
     [
-        "title"    => "Spring Backpack Drive",
-        "date"     => "March 2026",
-        "category" => "deliveries",
-        "image"    => "assets/images/gallery_backpack.jpg"
+        "date"  => "April 2024",
+        "title" => "First textbook delivery",
+        "image" => "assets/images/April2024.jpg",
+        "alt"   => "Stacks of new English textbooks and boxes of chalk",
+        "text"  => [
+            "Coordinated our very first delivery of textbooks straight to the local teaching staff."
+        ]
     ],
     [
-        "title"    => "Community Garden Day",
-        "date"     => "April 2025",
-        "category" => "events",
-        "image"    => "assets/images/gallery_garden.jpg"
+        "date"  => "January 2026",
+        "title" => "Introducing Computers",
+        "image" => "assets/images/Jan2026.jpg",
+        "alt"   => "New desktop computers set up on classroom desks",
+        "text"  => [
+            "Stepped up our support by delivering 30 computers to be installed across the school.",
+            "Provided stationery supplies."
+        ]
     ],
     [
-        "title"    => "Annual Spring Benefit Concert",
-        "date"     => "April 2025",
-        "category" => "events",
-        "image"    => "assets/images/gallery_concert.jpg"
-    ],
-    [
-        "title"    => "After-School Hot Fuel Program",
-        "date"     => "February 2025",
-        "category" => "campaigns",
-        "image"    => "assets/images/gallery_hotfuel.jpg"
-    ],
-    [
-        "title"    => "Creative Arts Funding Drop",
-        "date"     => "January 2026",
-        "category" => "deliveries",
-        "image"    => "assets/images/gallery_arts.jpg"
-    ],
-    [
-        "title"    => "District Charity Fun Run",
-        "date"     => "November 2025",
-        "category" => "events",
-        "image"    => "assets/images/gallery_funrun.jpg"
+        "date"  => "September 2026",
+        "title" => "Refreshing Resources",
+        "image" => "assets/images/Sep2026.jpg",
+        "alt"   => "Certificate of recognition from Casili Elementary School to Phill Anthropy",
+        "text"  => [
+            "Expanded the school's internet coverage by installing additional access points.",
+            "Provided additional stationery supplies."
+        ]
     ]
 ];
 ?>
@@ -51,11 +37,11 @@ $galleryItems = [
 
 <head>
     <meta charset="UTF-8">
-    <title>Gallery | Phill Antrophy</title>
+    <title>Gallery | Phill Anthropy</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" rel="stylesheet">
-    <link href="style/master.css" rel="stylesheet">
+    <link href="style/master.css?v=2" rel="stylesheet">
 </head>
 
 <body>
@@ -65,47 +51,33 @@ $galleryItems = [
     <!-- Page Hero -->
     <section id="galleryHero" class="d-flex align-items-center justify-content-center pageHero">
         <div class="container-fluid text-center">
-            <small class="eyebrow text-uppercase">In The Frame</small>
-            <h1 class="mt-2 mb-3">Our Community Gallery</h1>
-            <p class="mx-auto">Visual moments showing the real, direct impact of your charity drives,
-                neighborhood school supplies, and community gardens.</p>
+            <small class="eyebrow text-uppercase">Our Journey So Far</small>
+            <h1 class="mt-2 mb-3">Gallery</h1>
+            <p class="mx-auto gallery-intro">Thanks to the wonderful cooperation of local teachers, we have been able to complete
+                three successful rounds of deliveries at Casili Elementary School.</p>
         </div>
     </section>
 
-    <!-- Gallery Section -->
-    <section id="gallery" class="d-flex align-items-center justify-content-center homeSec">
+    <!-- Gallery -->
+    <section id="gallery" class="homeSec pb-5">
         <div class="container-fluid">
-
-            <!-- Filter pills -->
-            <div class="d-flex justify-content-center mb-5">
-                <div class="gallery-filter d-flex flex-wrap justify-content-center gap-1">
-                    <button type="button" class="btn filter-btn active" data-filter="all" aria-pressed="true">All Photos</button>
-                    <?php foreach ($categories as $key => $label): ?>
-                        <button type="button" class="btn filter-btn" data-filter="<?php echo $key; ?>" aria-pressed="false"><?php echo $label; ?></button>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-
-            <!-- Photo grid -->
             <div class="row g-4">
-                <?php foreach ($galleryItems as $item): ?>
-                    <!-- Gallery card -->
-                    <div class="col-sm-6 col-lg-4 gallery-item" data-category="<?php echo $item["category"]; ?>">
+                <?php foreach ($milestones as $item): ?>
+                    <!-- Milestone card -->
+                    <div class="col-md-6 col-lg-4">
                         <div class="card gallery-card h-100">
-                            <img src="<?php echo $item["image"]; ?>" class="gallery-img" alt="<?php echo $item["title"]; ?>">
-                            <div class="card-body">
-                                <h5 class="card-title mb-1"><?php echo $item["title"]; ?></h5>
-                                <small class="gallery-meta text-uppercase">
-                                    <?php echo $item["date"]; ?> &bull; <?php echo $categories[$item["category"]] ?? ""; ?>
-                                </small>
+                            <img src="<?php echo $item["image"]; ?>" class="gallery-img" alt="<?php echo $item["alt"]; ?>" loading="lazy">
+                            <div class="card-body p-4">
+                                <p class="gallery-date mb-2"><?php echo $item["date"]; ?></p>
+                                <h3 class="card-title mb-3"><?php echo $item["title"]; ?></h3>
+                                <?php foreach ($item["text"] as $line): ?>
+                                    <p class="gallery-text"><?php echo $line; ?></p>
+                                <?php endforeach; ?>
                             </div>
                         </div>
                     </div>
                 <?php endforeach; ?>
             </div>
-
-            <!-- Shown when a filter has no photos -->
-            <p id="galleryEmpty" class="text-center mt-4 d-none">No photos in this category yet. Check back after our next event.</p>
         </div>
     </section>
 
@@ -117,36 +89,6 @@ $galleryItems = [
         window.addEventListener("scroll", function() {
             const navbar = document.querySelector(".custom-navbar");
             navbar.classList.toggle("scrolled", window.scrollY > 50);
-        });
-    </script>
-    <!-- Gallery Filter -->
-    <script>
-        const filterButtons = document.querySelectorAll(".filter-btn");
-        const galleryItems = document.querySelectorAll(".gallery-item");
-        const emptyMessage = document.getElementById("galleryEmpty");
-
-        filterButtons.forEach(function(button) {
-            button.addEventListener("click", function() {
-                const filter = button.dataset.filter;
-                let visibleCount = 0;
-
-                // Highlight the clicked pill
-                filterButtons.forEach(function(btn) {
-                    btn.classList.remove("active");
-                    btn.setAttribute("aria-pressed", "false");
-                });
-                button.classList.add("active");
-                button.setAttribute("aria-pressed", "true");
-
-                // Show or hide cards
-                galleryItems.forEach(function(item) {
-                    const show = filter === "all" || item.dataset.category === filter;
-                    item.classList.toggle("d-none", !show);
-                    if (show) visibleCount++;
-                });
-
-                emptyMessage.classList.toggle("d-none", visibleCount > 0);
-            });
         });
     </script>
 
