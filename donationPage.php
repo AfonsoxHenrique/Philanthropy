@@ -178,110 +178,23 @@ $paymentMethods = [
                 <div class="col-lg-6">
                     <div class="card form-card p-4 p-md-5">
                         <h2 class="form-title mb-4">Choose Your Gift</h2>
-
+                        <div>
+                        <div data-zeffy-embed data-form-url="/embed/donation-form/donate-to-help-schools-in-philippines"></div>
+                        <div data-zeffy-embed-fallback style="display:none;">
+                            <div style="position:relative;overflow:hidden;height:450px;width:100%;"><iframe title='Donation form powered by Zeffy' style='position: absolute; border: 0; top:0;left:0;bottom:0;right:0;width:100%;height:100%' data-zeffy-embed-src='https://www.zeffy.com/embed/donation-form/donate-to-help-schools-in-philippines' allowpaymentrequest allowTransparency="true"></iframe></div>
+                        </div>
+                        <script
+                            src="https://www.zeffy.com/embed/v2/zeffy-embed.js"
+                            onerror="document.querySelectorAll('[data-zeffy-embed-fallback]').forEach(function(el){el.style.display='block';el.querySelectorAll('iframe[data-zeffy-embed-src]').forEach(function(f){f.src=f.getAttribute('data-zeffy-embed-src');});});">
+                        </script>
+                        </div>
                         <?php if (isset($errors["form"])): ?>
                             <div class="alert alert-danger" role="alert"><?php echo e($errors["form"]); ?></div>
                         <?php endif; ?>
 
-                        <form method="post" action="donationPage.php" id="donateForm" novalidate>
-                            <!-- One-time / Monthly toggle -->
-                            <div class="frequency-toggle mb-4" role="group" aria-label="Donation frequency">
-                                <input type="radio" class="btn-check" name="frequency" id="freqOnce" value="one-time"
-                                    <?php echo $old["frequency"] === "one-time" ? "checked" : ""; ?>>
-                                <label class="btn frequency-btn" for="freqOnce">One-Time Gift</label>
-
-                                <input type="radio" class="btn-check" name="frequency" id="freqMonthly" value="monthly"
-                                    <?php echo $old["frequency"] === "monthly" ? "checked" : ""; ?>>
-                                <label class="btn frequency-btn" for="freqMonthly">Monthly Donation</label>
-                            </div>
-
-                            <!-- Preset amounts -->
-                            <div class="row g-2 mb-4" role="group" aria-label="Preset amounts">
-                                <?php foreach ($presetAmounts as $preset): ?>
-                                    <div class="col-3">
-                                        <button type="button" class="btn amount-btn w-100 <?php echo floatval($old["amount"]) == $preset ? "active" : ""; ?>"
-                                            data-amount="<?php echo $preset; ?>">$<?php echo $preset; ?></button>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-
-                            <!-- Custom amount -->
-                            <div class="mb-3">
-                                <label for="amount" class="form-label">Or enter a custom amount</label>
-                                <div class="input-group">
-                                    <span class="input-group-text contact-input">$</span>
-                                    <input type="number" min="1" step="0.01" class="form-control contact-input <?php echo isset($errors["amount"]) ? "is-invalid" : ""; ?>"
-                                        id="amount" name="amount" value="<?php echo e($old["amount"]); ?>" required>
-                                    <?php if (isset($errors["amount"])): ?>
-                                        <div class="invalid-feedback"><?php echo e($errors["amount"]); ?></div>
-                                    <?php endif; ?>
-                                </div>
-                            </div>
-
-                            <!-- Name -->
-                            <div class="mb-3">
-                                <label for="name" class="form-label">Your Name</label>
-                                <input type="text" class="form-control contact-input <?php echo isset($errors["name"]) ? "is-invalid" : ""; ?>"
-                                    id="name" name="name" value="<?php echo e($old["name"]); ?>" autocomplete="name" required>
-                                <?php if (isset($errors["name"])): ?>
-                                    <div class="invalid-feedback"><?php echo e($errors["name"]); ?></div>
-                                <?php endif; ?>
-                            </div>
-
-                            <!-- Email -->
-                            <div class="mb-3">
-                                <label for="email" class="form-label">Email Address</label>
-                                <input type="email" class="form-control contact-input <?php echo isset($errors["email"]) ? "is-invalid" : ""; ?>"
-                                    id="email" name="email" value="<?php echo e($old["email"]); ?>" autocomplete="email" required>
-                                <?php if (isset($errors["email"])): ?>
-                                    <div class="invalid-feedback"><?php echo e($errors["email"]); ?></div>
-                                <?php endif; ?>
-                            </div>
-
-                            <!-- Dedication -->
-                            <div class="mb-4">
-                                <label for="dedication" class="form-label">Dedicate this donation (optional)</label>
-                                <textarea class="form-control contact-input <?php echo isset($errors["dedication"]) ? "is-invalid" : ""; ?>"
-                                    id="dedication" name="dedication" rows="3" maxlength="200"
-                                    placeholder="e.g. In memory of my grandmother, a former teacher"><?php echo e($old["dedication"]); ?></textarea>
-                                <?php if (isset($errors["dedication"])): ?>
-                                    <div class="invalid-feedback"><?php echo e($errors["dedication"]); ?></div>
-                                <?php endif; ?>
-                            </div>
-
-                            <!-- Payment methods -->
-                            <p class="form-label mb-2">Accepted Payment Methods</p>
-                            <div class="row g-2 mb-4">
-                                <?php foreach ($paymentMethods as $method): ?>
-                                    <div class="col-4 col-sm">
-                                        <div class="payment-chip" title="<?php echo e($method["label"]); ?>">
-                                            <i class="bi <?php echo $method["icon"]; ?>" aria-hidden="true"></i>
-                                            <small><?php echo e($method["label"]); ?></small>
-                                        </div>
-                                    </div>
-                                <?php endforeach; ?>
-                            </div>
-
-                            <!-- Privacy consent -->
-                            <div class="form-check mb-3">
-                                <input class="form-check-input contact-check <?php echo isset($errors["agree"]) ? "is-invalid" : ""; ?>"
-                                    type="checkbox" id="agree" name="agree" required>
-                                <label class="form-check-label consent-text" for="agree">
-                                    I agree to the <a href="privacy.php">Privacy Policy</a> and donation terms.
-                                </label>
-                                <?php if (isset($errors["agree"])): ?>
-                                    <div class="invalid-feedback"><?php echo e($errors["agree"]); ?></div>
-                                <?php endif; ?>
-                            </div>
-
                             <div class="secure-note mb-4">
                                 <i class="bi bi-lock me-2" aria-hidden="true"></i>Payments are processed securely and your card details are never stored on this website.
                             </div>
-
-                            <button type="submit" class="btn btn-send w-100" id="donateSubmit">
-                                Complete Donation of $<?php echo e(number_format(floatval($old["amount"]), 2)); ?>
-                                <i class="bi bi-heart ms-2" aria-hidden="true"></i>
-                            </button>
                         </form>
                     </div>
                 </div>

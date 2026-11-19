@@ -1,46 +1,25 @@
 <?php
 include 'supabase.php';
 
-// Load FAQs from Supabase so staff can edit them in the admin area
-$faqs   = [];
-$result = supabaseRequest("GET", "faqs", null, "?select=question,answer&order=id.asc");
-
-if ($result["code"] === 200 && is_array($result["data"]) && count($result["data"]) > 0) {
-    $faqs = $result["data"];
-} else {
-    // Fallback content if the database isn't available
-    $faqs = [
-        [
-            "question" => "Are donations to Phill Anthropy tax-deductible?",
-            "answer"   => "Donations of $2 or more are tax-deductible if Phill Anthropy holds Deductible Gift Recipient (DGR) status with the ATO. A receipt is emailed to you straight after your payment, so keep it for tax time."
-        ],
-        [
-            "question" => "How are the trust funds distributed?",
-            "answer"   => "85% of public donations go directly to school supplies, healthy meals and learning equipment. The remaining 15% covers auditing, local delivery and the tools we use to run events."
-        ],
-        [
-            "question" => "Can I volunteer remotely?",
-            "answer"   => "Yes. Some roles, like helping with social media, newsletters or event planning, can be done from home. Choose your preferred role on the Volunteer page and we'll be in touch."
-        ],
-        [
-            "question" => "How do you coordinate with school principals?",
-            "answer"   => "We meet with principals each term to understand what their students need most, then plan our supply drives and events around those needs."
-        ],
-        [
-            "question" => "What payment methods do you accept?",
-            "answer"   => "We accept Visa, Mastercard, PayPal, Apple Pay and Google Pay. All payments are processed securely through our payment provider."
-        ],
-        [
-            "question" => "Can I set up a monthly recurring donation?",
-            "answer"   => "Yes. Choose \"Monthly\" on the Donate page and your donation will be processed automatically each month. You can contact us at any time to change or cancel it."
-        ]
-    ];
-}
-
-// Safe output helper
 function e($value)
 {
     return htmlspecialchars((string)$value, ENT_QUOTES, "UTF-8");
+}
+
+// Load all published questions from the database
+$faqs   = [];
+$error  = "";
+$result = supabaseRequest(
+    "GET",
+    "faqs",
+    null,
+    "?select=id,question,answer,sort_order&is_published=eq.true&order=sort_order.asc"
+);
+
+if ($result["code"] === 200 && is_array($result["data"])) {
+    $faqs = $result["data"];
+} else {
+    $error = "FAQs could not be loaded right now. Please try again later.";
 }
 ?>
 <!DOCTYPE html>
@@ -72,27 +51,36 @@ function e($value)
     <!-- FAQ Accordion -->
     <section id="faq" class="homeSec">
         <div class="container-fluid">
-            <div class="accordion faq-accordion mx-auto" id="faqAccordion">
-                <?php foreach ($faqs as $i => $faq): ?>
-                    <?php $open = ($i === 0); ?>
-                    <!-- FAQ item -->
-                    <div class="accordion-item faq-item">
-                        <h2 class="accordion-header" id="faqHeading<?php echo $i; ?>">
-                            <button class="accordion-button faq-question <?php echo $open ? "" : "collapsed"; ?>" type="button"
-                                data-bs-toggle="collapse" data-bs-target="#faqAnswer<?php echo $i; ?>"
-                                aria-expanded="<?php echo $open ? "true" : "false"; ?>" aria-controls="faqAnswer<?php echo $i; ?>">
-                                <?php echo e($faq["question"]); ?>
-                            </button>
-                        </h2>
-                        <div id="faqAnswer<?php echo $i; ?>" class="accordion-collapse collapse <?php echo $open ? "show" : ""; ?>"
-                            aria-labelledby="faqHeading<?php echo $i; ?>">
-                            <div class="accordion-body faq-answer">
-                                <?php echo e($faq["answer"]); ?>
+            <?php if ($error !== ""): ?>
+                <div class="alert alert-warning text-center"><?php echo e($error); ?></div>
+            <?php elseif (empty($faqs)): ?>
+                <p class="text-center text-muted">No FAQs have been published yet.</p>
+            <?php else: ?>
+                <div class="accordion faq-accordion mx-auto" id="faqAccordion">
+                    <?php foreach ($faqs as $i => $faq): ?>
+                        <?php $open = ($i === 0); ?>
+                        <div class="accordion-item faq-item">
+                            <h2 class="accordion-header" id="faqHeading<?php echo $i; ?>">
+                                <button class="accordion-button faq-question <?php echo $open ? "" : "collapsed"; ?>"
+                                    type="button"
+                                    data-bs-toggle="collapse"
+                                    data-bs-target="#faqAnswer<?php echo $i; ?>"
+                                    aria-expanded="<?php echo $open ? "true" : "false"; ?>"
+                                    aria-controls="faqAnswer<?php echo $i; ?>">
+                                    <?php echo e($faq["question"]); ?>
+                                </button>
+                            </h2>
+                            <div id="faqAnswer<?php echo $i; ?>"
+                                class="accordion-collapse collapse <?php echo $open ? "show" : ""; ?>"
+                                aria-labelledby="faqHeading<?php echo $i; ?>">
+                                <div class="accordion-body faq-answer">
+                                    <?php echo e($faq["answer"]); ?>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                <?php endforeach; ?>
-            </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
         </div>
     </section>
 

@@ -26,7 +26,7 @@ $errors   = [];
 $sent = isset($_GET["sent"]);
 
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $fullName = trim($_POST["full_name"] ?? "");
+    $fullName = trim($_POST["name"] ?? "");
     $email    = trim($_POST["email"] ?? "");
     $subject  = $_POST["subject"] ?? "";
     $message  = trim($_POST["message"] ?? "");
@@ -52,13 +52,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     // Save to Supabase
     if (empty($errors)) {
         $data = [
-            "full_name" => $fullName,
+            "name" => $fullName,
             "email"     => $email,
             "subject"   => $subject,
             "message"   => $message
         ];
-
-        $result = supabaseRequest("POST", "contact_messages", $data);
+        
+        $result = supabaseRequest("POST", "contacts", $data);
 
         if ($result["code"] === 200 || $result["code"] === 201) {
             // Redirect so refreshing the page doesn't send the message twice
@@ -174,7 +174,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                             <form method="POST" action="contacts.php" novalidate>
                                 <div class="mb-3">
                                     <label for="fullName" class="form-label">Your Full Name</label>
-                                    <input type="text" id="fullName" name="full_name" class="form-control contact-input"
+                                    <input type="text" id="fullName" name="name" class="form-control contact-input"
                                         value="<?php echo htmlspecialchars($fullName); ?>" required>
                                 </div>
 
