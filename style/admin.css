@@ -412,3 +412,161 @@
         padding: 24px;
     }
 }
+
+/* ---------- Content editor forms ---------- */
+.panel-hint,
+.field-hint {
+    color: var(--text-muted);
+    font-size: 0.82rem;
+}
+
+.field-hint {
+    display: block;
+    margin-top: 4px;
+}
+
+.last-saved {
+    color: var(--text-muted);
+    font-size: 0.8rem;
+}
+
+.admin-label {
+    font-size: 0.8rem;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+.optional {
+    color: var(--text-muted);
+    font-weight: 400;
+}
+
+.admin-input {
+    background-color: #f7f6f2;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    font-size: 0.9rem;
+    padding: 9px 12px;
+}
+
+.admin-input:focus {
+    background-color: #ffffff;
+    border-color: var(--green);
+    box-shadow: 0 0 0 3px rgba(44, 90, 63, 0.15);
+}
+
+.admin-input.is-invalid {
+    border-color: var(--red);
+    background-color: #ffffff;
+}
+
+/* Program / impact slot boxes */
+.program-slot {
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 18px;
+    background-color: #fcfcfa;
+}
+
+.slot-icon {
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    background-color: var(--green-light);
+    color: var(--green);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slot-title {
+    color: var(--green);
+    font-size: 0.9rem;
+}
+
+/* Success message */
+.form-alert-success {
+    background-color: var(--green-light);
+    border: 1px solid var(--green);
+    color: var(--green);
+}
+
+/* Save bar sticks to the bottom of the screen while scrolling */
+.save-bar {
+    position: sticky;
+    bottom: 16px;
+    background-color: #ffffff;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 14px 20px;
+    box-shadow: 0 8px 24px rgba(31, 61, 43, 0.12);
+    z-index: 10;
+}
+
+.save-status {
+    color: var(--text-muted);
+}
+
+.save-status.unsaved {
+    color: #a85d08;
+    font-weight: 600;
+}
+
+.btn-save {
+    background-color: var(--green);
+    color: #ffffff;
+    font-weight: 600;
+    padding: 8px 20px;
+}
+
+.btn-save:hover,
+.btn-save:focus-visible {
+    background-color: var(--green-dark);
+    color: #ffffff;
+}
+
+.btn-cancel {
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.btn-cancel:hover {
+    color: var(--red);
+}
+
+/* ---------- Image upload preview ---------- */
+.image-preview {
+    position: relative;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    overflow: hidden;
+    background-color: #f7f6f2;
+    aspect-ratio: 16 / 10;
+}
+
+.image-preview img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.image-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    background-color: rgba(31, 61, 43, 0.85);
+    color: #ffffff;
+    font-size: 0.72rem;
+    font-weight: 600;
+    padding: 3px 8px;
+    border-radius: 4px;
+}
+
+.image-badge.is-new {
+    background-color: var(--orange);
+}
+
+.reselect-note {
+    color: #a85d08;
+}

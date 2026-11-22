@@ -4,8 +4,7 @@ $activePage = $activePage ?? "";
 
 $menuItems = [
     "dashboard"  => ["label" => "Dashboard Overview",  "icon" => "bi-grid",              "link" => "dashboard.php"],
-    "homepage"   => ["label" => "Homepage Content",    "icon" => "bi-file-earmark-text", "link" => "homepage-content.php"],
-    "events"     => ["label" => "District Events",     "icon" => "bi-calendar-event",    "link" => "events.php"],
+    "homepage"   => ["label" => "Homepage Content",    "icon" => "bi-file-earmark-text", "link" => "homepageContent.php"],
     "faqs"       => ["label" => "FAQs Management",     "icon" => "bi-question-circle",   "link" => "faqs.php"],
     "donations"  => ["label" => "Donations Ledger",    "icon" => "bi-currency-dollar",   "link" => "donations.php"],
     "volunteers" => ["label" => "Volunteer Stewards",  "icon" => "bi-people",            "link" => "volunteers.php"],

@@ -910,35 +910,12 @@ a.contact-value:hover {
 
 /* =====================================================
    Redesign after client feedback (Chonlatorn):
-   Home, About, Volunteer and Gallery
+   About, Volunteer and Gallery
    ===================================================== */
-
-/* HOME PAGE */
-#homeHero {
-    background:
-        linear-gradient(rgba(44, 90, 63, 0.82), rgba(44, 90, 63, 0.82)),
-        url("../assets/images/index_background.jpg") center / cover no-repeat;
-    background-color: #2c5a3f;
-    color: #ffffff;
-    min-height: 520px;
-    padding: 80px 120px;
-}
-
-#homeHero h1 {
-    font-weight: 700;
-    font-size: clamp(2.4rem, 5vw, 3.6rem);
-    max-width: 620px;
-    line-height: 1.15;
-}
-
-.hero-sub {
-    font-size: 1.15rem;
-    opacity: 0.92;
-}
 
 /* ---------- Mission line ---------- */
 #homeMission {
-    background-color: #faf8f2;
+    background-color: #f3f7f4;
     padding: 80px 20px 20px;
 }
 
@@ -951,7 +928,7 @@ a.contact-value:hover {
 
 /* ---------- Programs ---------- */
 #programs {
-    background-color: #faf8f2;
+    background-color: #f3f7f4;
     padding-bottom: 70px;
 }
 

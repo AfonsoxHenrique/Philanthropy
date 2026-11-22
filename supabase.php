@@ -1,8 +1,9 @@
 <?php
-$supabaseUrl = "https://xjbfwzciupgpwgiqaonc.supabase.co";  // ← put your real URL here
+$supabaseUrl = "https://xjbfwzciupgpwgiqaonc.supabase.co";
 $supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqYmZ3emNpdXBncHdnaXFhb25jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDA0MzcsImV4cCI6MjEwNzY3NjQzN30.kJXpbfRnwpnW31pn_Nwooq9JyJodqSDCbV_fH-7DWA4";                        // ← put your real anon key here
 
-function supabaseRequest($method, $table, $data = null, $query = "") {
+function supabaseRequest($method, $table, $data = null, $query = "")
+{
     global $supabaseUrl, $supabaseKey;
 
     $url = rtrim($supabaseUrl, '/') . "/rest/v1/" . $table . $query;
@@ -19,7 +20,7 @@ function supabaseRequest($method, $table, $data = null, $query = "") {
         CURLOPT_RETURNTRANSFER => true,
         CURLOPT_HTTPHEADER     => $headers,
         CURLOPT_CUSTOMREQUEST  => $method,
-        CURLOPT_SSL_VERIFYPEER => false, 
+        CURLOPT_SSL_VERIFYPEER => false,
         CURLOPT_SSL_VERIFYHOST => false,
         CURLOPT_TIMEOUT        => 15,
     ]);
@@ -40,7 +41,8 @@ function supabaseRequest($method, $table, $data = null, $query = "") {
     ];
 }
 
-function supabaseLogin($email, $password) {
+function supabaseLogin($email, $password)
+{
     global $supabaseUrl, $supabaseKey;
 
     $url = rtrim($supabaseUrl, '/') . "/auth/v1/token?grant_type=password";
