@@ -1,31 +1,66 @@
 <?php
-// Organizers (replace with the client's real organizers)
-$organizers = [
-    [
-        "name"  => "Sarah Jenkins",
-        "role"  => "Co-Founder &amp; Chair",
-        "bio"   => "Parent of two high schoolers. Founded the parent-led initiative after running fundraisers for supply drives.",
-        "image" => "assets/images/team_sarah.jpg"
-    ],
-    [
-        "name"  => "Dr. Robert Patel",
-        "role"  => "Advisory Principal",
-        "bio"   => "Retired middle school principal of 20 years. Advises on student resource needs and teacher safety.",
-        "image" => "assets/images/team_robert.jpg"
-    ],
-    [
-        "name"  => "Emily Chen",
-        "role"  => "Treasurer &amp; Auditor",
-        "bio"   => "Chartered accountant. Makes sure every penny is counted, balanced, and published to our community.",
-        "image" => "assets/images/team_emily.jpg"
-    ]
-];
+include 'supabase.php';
 
-// Initials for when there's no approved photo (e.g. "Dr. Robert Patel" -> "RP")
+function e($value)
+{
+    return htmlspecialchars((string)$value, ENT_QUOTES, "UTF-8");
+}
+
 function initials($name)
 {
-    $words = explode(" ", str_replace("Dr. ", "", $name));
-    return strtoupper(substr($words[0], 0, 1) . substr(end($words), 0, 1));
+    $clean = str_replace("Dr. ", "", $name);
+    $words = preg_split('/\s+/', trim($clean));
+    $first = $words[0] ?? "";
+    $last  = $words[count($words) - 1] ?? "";
+    return strtoupper(substr($first, 0, 1) . substr($last, 0, 1));
+}
+
+// Defaults if DB is offline
+$copy = [
+    "about_hero_title"    => "About Us",
+    "about_hero_text"     => "Phill Anthropy Pty Ltd is an Australian-based charity dedicated to providing children in Cebu, Philippines, with the essential tools they need to learn and thrive.",
+    "about_story_title"   => "Supporting classrooms in Cebu",
+    "about_story_p1"      => "We coordinate everything from Australia, working directly with local elementary school teachers in Cebu to find out what their classrooms need most. By listening to educators first, we ensure that the resources we send go straight into the classrooms where they will make the most meaningful impact.",
+    "about_story_p2"      => "Making a lasting difference takes time and consistency. Instead of providing one-off donations, we focus on building long-term relationships with our partner schools so we can continue to support them year after year.",
+    "about_journey_title" => "Our Journey So Far",
+    "about_journey_text"  => "We believe that the best way to help is through steady, deliberate steps. We stay by the side of our partner schools to ensure their classrooms are looked after for the long haul.",
+    "about_team_eyebrow"  => "The Leadership",
+    "about_team_title"    => "Meet Our Organizers"
+];
+
+$settingsResult = supabaseRequest(
+    "GET",
+    "site_settings",
+    null,
+    "?select=setting_key,setting_value&setting_key=like.about_%"
+);
+
+if (($settingsResult["code"] ?? 0) === 200 && is_array($settingsResult["data"] ?? null)) {
+    foreach ($settingsResult["data"] as $row) {
+        $key = $row["setting_key"] ?? "";
+        if ($key !== "" && array_key_exists($key, $copy)) {
+            $copy[$key] = $row["setting_value"] ?? $copy[$key];
+        }
+    }
+}
+
+$organizers = [];
+$teamResult = supabaseRequest(
+    "GET",
+    "team_members",
+    null,
+    "?select=name,role,bio,image_url&is_published=eq.true&order=sort_order.asc"
+);
+
+if (($teamResult["code"] ?? 0) === 200 && is_array($teamResult["data"] ?? null)) {
+    foreach ($teamResult["data"] as $row) {
+        $organizers[] = [
+            "name"  => $row["name"] ?? "",
+            "role"  => $row["role"] ?? "",
+            "bio"   => $row["bio"] ?? "",
+            "image" => $row["image_url"] ?? ""
+        ];
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -41,66 +76,62 @@ function initials($name)
 </head>
 
 <body>
-    <!-- Navbar -->
     <?php include 'include/navbar.php' ?>
 
-    <!-- Page Hero -->
     <section id="aboutHero" class="d-flex align-items-center justify-content-center pageHero">
         <div class="container-fluid text-center">
             <small class="eyebrow text-uppercase">Who We Are</small>
-            <h1 class="mt-2 mb-3">About Us</h1>
-            <p class="mx-auto about-intro">Phill Anthropy Pty Ltd is an Australian-based charity dedicated to providing children in
-                Cebu, Philippines, with the essential tools they need to learn and thrive.</p>
+            <h1 class="mt-2 mb-3"><?php echo e($copy["about_hero_title"]); ?></h1>
+            <p class="mx-auto about-intro"><?php echo e($copy["about_hero_text"]); ?></p>
         </div>
     </section>
 
-    <!-- Story -->
     <section id="aboutStory" class="homeSec pb-5">
         <div class="container-fluid">
             <div class="about-card mx-auto">
-                <h2 class="mb-4">Supporting classrooms in Cebu</h2>
-                <p>We coordinate everything from Australia, working directly with local elementary school teachers in Cebu to
-                    find out what their classrooms need most. By listening to educators first, we ensure that the resources we
-                    send go straight into the classrooms where they will make the most meaningful impact.</p>
-                <p class="mb-0">Making a lasting difference takes time and consistency. Instead of providing one-off donations,
-                    we focus on building long-term relationships with our partner schools so we can continue to support them
-                    year after year.</p>
+                <h2 class="mb-4"><?php echo e($copy["about_story_title"]); ?></h2>
+                <p><?php echo e($copy["about_story_p1"]); ?></p>
+                <p class="mb-0"><?php echo e($copy["about_story_p2"]); ?></p>
             </div>
         </div>
     </section>
 
-    <!-- Journey -->
     <section id="journey" class="text-center">
         <div class="container-fluid">
-            <h2 class="mb-3">Our Journey So Far</h2>
-            <p class="mx-auto mb-0">We believe that the best way to help is through steady, deliberate steps. We stay by the
-                side of our partner schools to ensure their classrooms are looked after for the long haul.</p>
+            <h2 class="mb-3"><?php echo e($copy["about_journey_title"]); ?></h2>
+            <p class="mx-auto mb-0"><?php echo e($copy["about_journey_text"]); ?></p>
         </div>
     </section>
 
-    <!-- Team Section -->
     <section id="team" class="homeSec pb-5">
         <div class="container-fluid">
-            <small class="eyebrow text-uppercase d-block text-center">The Leadership</small>
-            <h2 class="text-center mt-2 mb-5">Meet Our Organizers</h2>
+            <small class="eyebrow text-uppercase d-block text-center"><?php echo e($copy["about_team_eyebrow"]); ?></small>
+            <h2 class="text-center mt-2 mb-5"><?php echo e($copy["about_team_title"]); ?></h2>
 
             <div class="row g-4 justify-content-center">
+                <?php if (empty($organizers)): ?>
+                    <p class="text-center text-muted">Team details coming soon.</p>
+                <?php endif; ?>
+
                 <?php foreach ($organizers as $person): ?>
-                    <!-- Organizer card -->
                     <div class="col-sm-6 col-lg-4">
                         <div class="card team-card h-100">
-                            <?php if (file_exists(__DIR__ . "/" . $person["image"])): ?>
-                                <img src="<?php echo $person["image"]; ?>" class="team-img" alt="<?php echo $person["name"]; ?>">
+                            <?php
+                            $img = $person["image"] ?? "";
+                            $hasLocalFile = $img !== "" && !preg_match('#^https?://#', $img) && file_exists(__DIR__ . "/" . $img);
+                            $hasRemote    = $img !== "" && preg_match('#^https?://#', $img);
+                            ?>
+                            <?php if ($hasLocalFile || $hasRemote): ?>
+                                <img src="<?php echo e($img); ?>" class="team-img" alt="<?php echo e($person["name"]); ?>">
                             <?php else: ?>
-                                <!-- No approved photo yet: show initials -->
                                 <div class="team-avatar" aria-hidden="true">
-                                    <span class="team-initials"><?php echo initials($person["name"]); ?></span>
+                                    <span class="team-initials"><?php echo e(initials($person["name"])); ?></span>
                                 </div>
                             <?php endif; ?>
                             <div class="card-body d-flex flex-column p-4">
-                                <h5 class="card-title mb-1"><?php echo $person["name"]; ?></h5>
-                                <small class="team-role text-uppercase mb-2"><?php echo $person["role"]; ?></small>
-                                <p class="card-text"><?php echo $person["bio"]; ?></p>
+                                <h5 class="card-title mb-1"><?php echo e($person["name"]); ?></h5>
+                                <small class="team-role text-uppercase mb-2"><?php echo e($person["role"]); ?></small>
+                                <p class="card-text"><?php echo e($person["bio"]); ?></p>
                             </div>
                         </div>
                     </div>
@@ -112,14 +143,12 @@ function initials($name)
     <?php include 'include/footer.php' ?>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Scroll Effect -->
     <script>
         window.addEventListener("scroll", function() {
             const navbar = document.querySelector(".custom-navbar");
-            navbar.classList.toggle("scrolled", window.scrollY > 50);
+            if (navbar) navbar.classList.toggle("scrolled", window.scrollY > 50);
         });
     </script>
-
 </body>
 
 </html>

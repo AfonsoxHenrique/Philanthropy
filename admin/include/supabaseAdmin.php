@@ -9,6 +9,13 @@ function supabaseAuthRefresh()
     $ch = curl_init('https://xjbfwzciupgpwgiqaonc.supabase.co' . '/auth/v1/token?grant_type=refresh_token');
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_POST, true);
+
+    //delete before hosting it
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    //delete before hosting it
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(["refresh_token" => $refreshToken]));
     curl_setopt($ch, CURLOPT_TIMEOUT, 10);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
@@ -18,7 +25,6 @@ function supabaseAuthRefresh()
 
     $response = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
 
     $data = $response !== false ? json_decode($response, true) : null;
 
@@ -39,6 +45,12 @@ function supabaseAdminRequest($method, $table, $data = null, $query = "", $retry
     $ch = curl_init($url);
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $method);
+
+    //delete before hosting it
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    //delete before hosting it
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+
     curl_setopt($ch, CURLOPT_TIMEOUT, 10);
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
         'apikey: ' . 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqYmZ3emNpdXBncHdnaXFhb25jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDA0MzcsImV4cCI6MjEwNzY3NjQzN30.kJXpbfRnwpnW31pn_Nwooq9JyJodqSDCbV_fH-7DWA4',
@@ -53,7 +65,6 @@ function supabaseAdminRequest($method, $table, $data = null, $query = "", $retry
 
     $response = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
 
     if ($httpCode === 401 && $retry && supabaseAuthRefresh()) {
         return supabaseAdminRequest($method, $table, $data, $query, false);
@@ -75,6 +86,12 @@ function supabaseStorageUpload($bucket, $path, $localFile, $mimeType, $retry = t
     curl_setopt($ch, CURLOPT_POST, true);
     curl_setopt($ch, CURLOPT_POSTFIELDS, file_get_contents($localFile));
     curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+
+    //delete before hosting it
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    //delete before hosting it
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+    
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
         'apikey: ' . 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqYmZ3emNpdXBncHdnaXFhb25jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDA0MzcsImV4cCI6MjEwNzY3NjQzN30.kJXpbfRnwpnW31pn_Nwooq9JyJodqSDCbV_fH-7DWA4',
         'Authorization: Bearer ' . ($_SESSION["access_token"] ?? ""),
@@ -84,7 +101,6 @@ function supabaseStorageUpload($bucket, $path, $localFile, $mimeType, $retry = t
 
     $response = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
 
     //Refresh expired token and try again
     if (($httpCode === 401 || $httpCode === 403) && $retry && supabaseAuthRefresh()) {
@@ -109,7 +125,14 @@ function supabaseStorageDelete($bucket, array $paths, $retry = true)
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
     curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(["prefixes" => $paths]));
+
     curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+    //delete before hosting it
+    curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
+    //delete before hosting it
+
+    curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 0);
+
     curl_setopt($ch, CURLOPT_HTTPHEADER, [
         'apikey: ' . 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqYmZ3emNpdXBncHdnaXFhb25jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDA0MzcsImV4cCI6MjEwNzY3NjQzN30.kJXpbfRnwpnW31pn_Nwooq9JyJodqSDCbV_fH-7DWA4',
         'Authorization: Bearer ' . ($_SESSION["access_token"] ?? ""),
@@ -118,7 +141,6 @@ function supabaseStorageDelete($bucket, array $paths, $retry = true)
 
     curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
 
     if (($httpCode === 401 || $httpCode === 403) && $retry && supabaseAuthRefresh()) {
         return supabaseStorageDelete($bucket, $paths, false);

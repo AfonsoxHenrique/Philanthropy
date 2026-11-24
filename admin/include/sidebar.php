@@ -5,10 +5,11 @@ $activePage = $activePage ?? "";
 $menuItems = [
     "dashboard"  => ["label" => "Dashboard Overview",  "icon" => "bi-grid",              "link" => "dashboard.php"],
     "homepage"   => ["label" => "Homepage Content",    "icon" => "bi-file-earmark-text", "link" => "homepageContent.php"],
+    "about"      => ["label" => "About Us",            "icon" => "bi-info-circle",       "link" => "about.php"],
     "gallery"    => ["label" => "Gallery",             "icon" => "bi-images",            "link" => "gallery.php"],
     "faqs"       => ["label" => "FAQs Management",     "icon" => "bi-question-circle",   "link" => "faqs.php"],
     "donations"  => ["label" => "Donations Ledger",    "icon" => "bi-currency-dollar",   "link" => "donations.php"],
-    "volunteers" => ["label" => "Volunteer Stewards",  "icon" => "bi-people",            "link" => "volunteers.php"],
+    // "volunteers" => ["label" => "Volunteer Stewards",  "icon" => "bi-people",            "link" => "volunteers.php"],
     "settings"   => ["label" => "Settings",            "icon" => "bi-gear",              "link" => "settings.php"]
 ];
 ?>

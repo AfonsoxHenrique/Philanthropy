@@ -134,15 +134,19 @@ $firstName = explode(" ", $adminName)[0];
                     </div>
                 </div>
 
-                <div class="col-sm-6 col-xl-3">
+               <!-- Will be added later  
+                
+               <div class="col-sm-6 col-xl-3">
                     <div class="card stat-card h-100">
                         <div class="card-body">
                             <small class="stat-label text-uppercase">Volunteer Stewards</small>
-                            <div class="stat-value"><?php echo $approvedVolunteers; ?> Stewards</div>
+                            <div class="stat-value"> <?php echo $approvedVolunteers; ?> Stewards</div>
                             <span class="stat-tag tag-green">+<?php echo $pendingVolunteers; ?> pending check</span>
                         </div>
                     </div>
-                </div>
+                </div> 
+                
+                -->
 
                 <div class="col-sm-6 col-xl-3">
                     <div class="card stat-card h-100">
@@ -176,6 +180,9 @@ $firstName = explode(" ", $adminName)[0];
                         </a>
                         <a href="settings.php#goal" class="btn btn-action">
                             <i class="bi bi-bullseye"></i> Update Fundraising Goal
+                        </a>
+                        <a href="donations.php" class="btn btn-action">
+                            <i class="bi bi-cash-coin"></i> View Donations
                         </a>
                     </div>
                 </div>
