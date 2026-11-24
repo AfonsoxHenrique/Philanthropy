@@ -65,3 +65,64 @@ function supabaseAdminRequest($method, $table, $data = null, $query = "", $retry
 
     return ["code" => $httpCode, "data" => json_decode($response, true)];
 }
+
+function supabaseStorageUpload($bucket, $path, $localFile, $mimeType, $retry = true)
+{
+    $base = rtrim('https://xjbfwzciupgpwgiqaonc.supabase.co', '/');
+
+    $ch = curl_init($base . '/storage/v1/object/' . $bucket . '/' . $path);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_POST, true);
+    curl_setopt($ch, CURLOPT_POSTFIELDS, file_get_contents($localFile));
+    curl_setopt($ch, CURLOPT_TIMEOUT, 30);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'apikey: ' . 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqYmZ3emNpdXBncHdnaXFhb25jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDA0MzcsImV4cCI6MjEwNzY3NjQzN30.kJXpbfRnwpnW31pn_Nwooq9JyJodqSDCbV_fH-7DWA4',
+        'Authorization: Bearer ' . ($_SESSION["access_token"] ?? ""),
+        'Content-Type: ' . $mimeType,
+        'Cache-Control: max-age=31536000'
+    ]);
+
+    $response = curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    //Refresh expired token and try again
+    if (($httpCode === 401 || $httpCode === 403) && $retry && supabaseAuthRefresh()) {
+        return supabaseStorageUpload($bucket, $path, $localFile, $mimeType, false);
+    }
+
+    if ($response === false || $httpCode !== 200) {
+        return ["code" => $httpCode, "url" => ""];
+    }
+
+    return ["code" => 200, "url" => $base . '/storage/v1/object/public/' . $bucket . '/' . $path];
+}
+
+function supabaseStorageDelete($bucket, array $paths, $retry = true)
+{
+    $paths = array_values(array_filter($paths));
+    if (empty($paths)) {
+        return ["code" => 200];
+    }
+
+    $ch = curl_init(rtrim('https://xjbfwzciupgpwgiqaonc.supabase.co', '/') . '/storage/v1/object/' . $bucket);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($ch, CURLOPT_CUSTOMREQUEST, "DELETE");
+    curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode(["prefixes" => $paths]));
+    curl_setopt($ch, CURLOPT_TIMEOUT, 15);
+    curl_setopt($ch, CURLOPT_HTTPHEADER, [
+        'apikey: ' . 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InhqYmZ3emNpdXBncHdnaXFhb25jIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTIxMDA0MzcsImV4cCI6MjEwNzY3NjQzN30.kJXpbfRnwpnW31pn_Nwooq9JyJodqSDCbV_fH-7DWA4',
+        'Authorization: Bearer ' . ($_SESSION["access_token"] ?? ""),
+        'Content-Type: application/json'
+    ]);
+
+    curl_exec($ch);
+    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+    curl_close($ch);
+
+    if (($httpCode === 401 || $httpCode === 403) && $retry && supabaseAuthRefresh()) {
+        return supabaseStorageDelete($bucket, $paths, false);
+    }
+
+    return ["code" => $httpCode];
+}

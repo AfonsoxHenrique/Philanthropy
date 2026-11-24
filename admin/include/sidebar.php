@@ -5,13 +5,14 @@ $activePage = $activePage ?? "";
 $menuItems = [
     "dashboard"  => ["label" => "Dashboard Overview",  "icon" => "bi-grid",              "link" => "dashboard.php"],
     "homepage"   => ["label" => "Homepage Content",    "icon" => "bi-file-earmark-text", "link" => "homepageContent.php"],
+    "gallery"    => ["label" => "Gallery",             "icon" => "bi-images",            "link" => "gallery.php"],
     "faqs"       => ["label" => "FAQs Management",     "icon" => "bi-question-circle",   "link" => "faqs.php"],
     "donations"  => ["label" => "Donations Ledger",    "icon" => "bi-currency-dollar",   "link" => "donations.php"],
     "volunteers" => ["label" => "Volunteer Stewards",  "icon" => "bi-people",            "link" => "volunteers.php"],
     "settings"   => ["label" => "Settings",            "icon" => "bi-gear",              "link" => "settings.php"]
 ];
 ?>
-<!-- Admin Sidebar (static on desktop, slide-out menu on mobile) -->
+
 <div class="admin-sidebar-wrap">
     <aside class="offcanvas-lg offcanvas-start admin-sidebar" tabindex="-1" id="adminSidebar" aria-label="Admin menu">
         <div class="offcanvas-header d-lg-none">
@@ -22,13 +23,13 @@ $menuItems = [
         <div class="offcanvas-body">
             <nav class="w-100">
                 <ul class="nav flex-column gap-1">
-                    <?php foreach ($menuItems as $key => $item): ?>
+                    <?php foreach ($menuItems as $key => $menuItem): ?>
                         <li class="nav-item">
-                            <a href="<?php echo $item["link"]; ?>"
+                            <a href="<?php echo $menuItem["link"]; ?>"
                                 class="nav-link sidebar-link <?php echo $activePage === $key ? "active" : ""; ?>"
                                 <?php echo $activePage === $key ? 'aria-current="page"' : ""; ?>>
-                                <i class="bi <?php echo $item["icon"]; ?>"></i>
-                                <?php echo $item["label"]; ?>
+                                <i class="bi <?php echo $menuItem["icon"]; ?>"></i>
+                                <?php echo $menuItem["label"]; ?>
                             </a>
                         </li>
                     <?php endforeach; ?>

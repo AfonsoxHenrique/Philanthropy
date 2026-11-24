@@ -1143,6 +1143,106 @@ a.contact-value:hover {
     line-height: 1.6;
 }
 
+/* The card photo is a button that opens the slideshow */
+.gallery-open {
+    display: block;
+    position: relative;
+    width: 100%;
+    padding: 0;
+    border: 0;
+    background: none;
+    cursor: zoom-in;
+}
+
+.gallery-open .gallery-img {
+    display: block;
+    width: 100%;
+}
+
+.gallery-open:focus-visible {
+    outline: 3px solid #d9821e;
+    outline-offset: -3px;
+}
+
+.gallery-count {
+    position: absolute;
+    right: 12px;
+    bottom: 12px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background-color: rgba(31, 61, 43, 0.88);
+    color: #ffffff;
+    font-size: 0.78rem;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 50px;
+    transition: background-color 0.15s ease;
+}
+
+.gallery-open:hover .gallery-count,
+.gallery-open:focus-visible .gallery-count {
+    background-color: #d9821e;
+}
+
+/* Popup */
+.gallery-lightbox .modal-content {
+    background-color: #14281c;
+    color: #ffffff;
+    border: 0;
+}
+
+.lightbox-date {
+    color: #d9821e;
+    font-size: 0.75rem;
+    font-weight: 600;
+}
+
+.lightbox-counter {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 0.85rem;
+    white-space: nowrap;
+}
+
+.lightbox-figure {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.lightbox-img {
+    display: block;
+    max-width: 100%;
+    max-height: 75vh;
+    min-height: 200px;
+    margin: 0 auto;
+    object-fit: contain;
+}
+
+.lightbox-caption {
+    padding: 12px 20px 20px;
+    text-align: center;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.95rem;
+}
+
+.gallery-lightbox .carousel-control-prev,
+.gallery-lightbox .carousel-control-next {
+    width: 10%;
+}
+
+@media (max-width: 991.98px) {
+    .lightbox-img {
+        max-height: 70vh;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .gallery-lightbox .carousel-item {
+        transition: none;
+    }
+}
+
 /* ---------- Mobile ---------- */
 @media (max-width: 991px) {
     #homeHero {

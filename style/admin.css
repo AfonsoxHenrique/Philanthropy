@@ -15,7 +15,6 @@
     --border: #e8e6df;
     --text-muted: #5c5c5c;
     --sidebar-width: 245px;
-    /* Copy your font-family from master.css here so both sides match */
     --font-main: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
     --font-mono: ui-monospace, "SFMono-Regular", Menlo, Consolas, monospace;
 }
@@ -569,4 +568,10 @@
 
 .reselect-note {
     color: #a85d08;
+}
+
+.photo-img{
+    width: 100%;
+    height: auto;
+    object-fit: cover;
 }

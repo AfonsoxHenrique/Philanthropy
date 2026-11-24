@@ -1,11 +1,9 @@
 <?php
 include 'supabase.php';
 
-// ===== Fundraising goal settings (keep the same as donationPage.php) =====
 $goalAmount = 20000;
 $goalEnds   = "15 April 2027";
 
-// ===== Fundraising progress =====
 $result = supabaseRequest("GET", "donations", null, "?select=amount");
 
 $totalRaised   = 0;
@@ -20,23 +18,25 @@ $percentFunded = $goalAmount > 0 ? min(100, round(($totalRaised / $goalAmount) *
 
 // These defaults are only used if Supabase can't be reached
 $content = [
-    "hero_title"    => "Helping Local Students Thrive",
-    "hero_subtitle" => "School essentials. Brighter futures in Cebu.",
-    "mission_line"  => "We fund school supplies and technology for students in Cebu, Philippines.",
-    "programs"      => [
-        ["icon" => "bi-book",       "title" => "Textbooks & Stationery", "meta" => "First delivery · April 2024",                "text" => "Books and supplies for Cebu classrooms."],
-        ["icon" => "bi-pc-display", "title" => "Classroom Computers",    "meta" => "30 computers delivered · January 2026",     "text" => "Technology to support classroom learning."],
-        ["icon" => "bi-wifi",       "title" => "School Internet Access", "meta" => "Added access points · September 2026",      "text" => "Wider internet coverage across the school."]
+    "hero_title"     => "Helping Local Students Thrive",
+    "hero_subtitle"  => "Phill Anthropy helps close the resource gap for neighborhood schools. We fund the needs of Cebu's schools to give a brighter future to students in need.",
+    "hero_image"     => "",
+    "hero_image_alt" => "Students at a school in Cebu",
+    "mission_line"   => "We fund school supplies and technology for students in Cebu, Philippines.",
+    "programs"       => [
+        ["icon" => "bi-book",       "title" => "Textbooks & Stationery", "meta" => "First delivery · April 2024",            "text" => "Books and supplies for Cebu classrooms."],
+        ["icon" => "bi-pc-display", "title" => "Classroom Computers",    "meta" => "30 computers delivered · January 2026", "text" => "Technology to support classroom learning."],
+        ["icon" => "bi-wifi",       "title" => "School Internet Access", "meta" => "Added access points · September 2026",  "text" => "Wider internet coverage across the school."]
     ],
-    "promise_title" => "Every dollar is tracked and reported.",
-    "impact"        => [
+    "promise_title"  => "Every dollar is tracked and reported.",
+    "impact"         => [
         ["number" => "300+", "label" => "Students supported"],
         ["number" => "50+",  "label" => "Volunteers"],
         ["number" => "15",   "label" => "Events"]
     ],
-    "quote"         => "",
-    "cta_title"     => "Join Us — Every Contribution Makes a Difference",
-    "cta_text"      => "Give a little. Help local children thrive."
+    "quote"          => "",
+    "cta_title"      => "Join Us — Every Contribution Makes a Difference",
+    "cta_text"       => "Give a little. Help local children thrive."
 ];
 
 $contentResult = supabaseRequest("GET", "homepage_content", null, "?select=*&id=eq.1");
@@ -47,11 +47,15 @@ if ($contentResult["code"] === 200 && is_array($contentResult["data"]) && !empty
         if (!array_key_exists($key, $row) || $row[$key] === null) {
             continue;
         }
+        // Programs and impact must be lists; text fields must be text
         if (is_array($default) === is_array($row[$key])) {
             $content[$key] = $row[$key];
         }
     }
 }
+
+// Use the local image until an admin uploads one
+$heroImage = $content["hero_image"] !== "" ? $content["hero_image"] : "assets/images/index_background.jpg";
 
 $programs = $content["programs"];
 $impact   = $content["impact"];
@@ -74,11 +78,19 @@ $quote    = trim($content["quote"]);
     <?php include 'include/navbar.php' ?>
 
     <!-- Hero -->
-    <section id="homeHero" class="d-flex align-items-center">
+    <section id="hero" class="d-flex align-items-center justify-content-center homeSec">
         <div class="container-fluid">
-            <h1 class="mb-3"><?php echo htmlspecialchars($content["hero_title"]); ?></h1>
-            <p class="hero-sub mb-4"><?php echo htmlspecialchars($content["hero_subtitle"]); ?></p>
-            <a href="donationPage.php" class="btn cta-btn cta-primary">Donate Now</a>
+            <div class="row align-items-center">
+                <div class="col-md-4">
+                    <h1 class="mb-4"><?php echo htmlspecialchars($content["hero_title"]); ?></h1>
+                    <p><?php echo htmlspecialchars($content["hero_subtitle"]); ?></p>
+                    <a href="donationPage.php" class="btn cta-btn cta-primary">Donate Now</a>
+                </div>
+                <div class="col-md-8 text-end">
+                    <img src="<?php echo htmlspecialchars($heroImage); ?>" class="img-fluid" alt="<?php echo htmlspecialchars($content["hero_image_alt"]); ?>">
+                </div>
+            </div>
+
         </div>
     </section>
 

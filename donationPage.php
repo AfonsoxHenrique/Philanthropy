@@ -53,8 +53,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 
     if (empty($errors)) {
-        // TODO: Send the donor to the payment gateway here (task 4.1).
-        // Only save the donation after the payment is confirmed.
         $newDonation = [
             "amount"     => round($amount, 2),
             "frequency"  => $old["frequency"],
@@ -179,22 +177,22 @@ $paymentMethods = [
                     <div class="card form-card p-4 p-md-5">
                         <h2 class="form-title mb-4">Choose Your Gift</h2>
                         <div>
-                        <div data-zeffy-embed data-form-url="/embed/donation-form/donate-to-help-schools-in-philippines"></div>
-                        <div data-zeffy-embed-fallback style="display:none;">
-                            <div style="position:relative;overflow:hidden;height:450px;width:100%;"><iframe title='Donation form powered by Zeffy' style='position: absolute; border: 0; top:0;left:0;bottom:0;right:0;width:100%;height:100%' data-zeffy-embed-src='https://www.zeffy.com/embed/donation-form/donate-to-help-schools-in-philippines' allowpaymentrequest allowTransparency="true"></iframe></div>
-                        </div>
-                        <script
-                            src="https://www.zeffy.com/embed/v2/zeffy-embed.js"
-                            onerror="document.querySelectorAll('[data-zeffy-embed-fallback]').forEach(function(el){el.style.display='block';el.querySelectorAll('iframe[data-zeffy-embed-src]').forEach(function(f){f.src=f.getAttribute('data-zeffy-embed-src');});});">
-                        </script>
+                            <div data-zeffy-embed data-form-url="/embed/donation-form/donate-to-help-schools-in-philippines"></div>
+                            <div data-zeffy-embed-fallback style="display:none;">
+                                <div style="position:relative;overflow:hidden;height:450px;width:100%;"><iframe title='Donation form powered by Zeffy' style='position: absolute; border: 0; top:0;left:0;bottom:0;right:0;width:100%;height:100%' data-zeffy-embed-src='https://www.zeffy.com/embed/donation-form/donate-to-help-schools-in-philippines' allowpaymentrequest allowTransparency="true"></iframe></div>
+                            </div>
+                            <script
+                                src="https://www.zeffy.com/embed/v2/zeffy-embed.js"
+                                onerror="document.querySelectorAll('[data-zeffy-embed-fallback]').forEach(function(el){el.style.display='block';el.querySelectorAll('iframe[data-zeffy-embed-src]').forEach(function(f){f.src=f.getAttribute('data-zeffy-embed-src');});});">
+                            </script>
                         </div>
                         <?php if (isset($errors["form"])): ?>
                             <div class="alert alert-danger" role="alert"><?php echo e($errors["form"]); ?></div>
                         <?php endif; ?>
 
-                            <div class="secure-note mb-4">
-                                <i class="bi bi-lock me-2" aria-hidden="true"></i>Payments are processed securely and your card details are never stored on this website.
-                            </div>
+                        <div class="secure-note mb-4 mt-4">
+                            <i class="bi bi-lock me-2" aria-hidden="true"></i>Payments are processed securely and your card details are never stored on this website.
+                        </div>
                         </form>
                     </div>
                 </div>
@@ -230,7 +228,9 @@ $paymentMethods = [
         // Preset amount buttons fill in the amount field
         amountButtons.forEach(function(button) {
             button.addEventListener("click", function() {
-                amountButtons.forEach(function(b) { b.classList.remove("active"); });
+                amountButtons.forEach(function(b) {
+                    b.classList.remove("active");
+                });
                 button.classList.add("active");
                 amountInput.value = button.dataset.amount;
                 updateSubmitText();
